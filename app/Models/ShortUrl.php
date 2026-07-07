@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
  * Model ShortUrl
@@ -12,6 +13,7 @@ class ShortUrl extends Model
 {
     /**
      * Atributos que podem ser preenchidos em massa (Mass Assignment).
+     *
      * * @var array<int, string>
      */
     protected $fillable = [
@@ -28,6 +30,7 @@ class ShortUrl extends Model
      * Define a conversão de tipos (Casting) dos atributos.
      * * Garante que os dados sejam manipulados com os tipos nativos corretos do PHP
      * ao serem recuperados ou salvos no banco de dados.
+     *
      * * @return array<string, string>
      */
     protected function casts(): array
@@ -41,7 +44,8 @@ class ShortUrl extends Model
     /**
      * Relacionamento: Um link encurtado pertence a um usuário.
      * * Define a relação inversa de "Muitos para Um" (BelongsTo).
-     * * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     *
+     * * @return BelongsTo
      */
     public function user()
     {
