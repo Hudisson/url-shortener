@@ -67,7 +67,7 @@ npm -v
 Clone o repositório:
 
 ```bash
-git clone https://github.com/SEU-USUARIO/url-shortener.git
+git clone https://github.com/Hudisson/url-shortener.git
 ```
 
 Entre no diretório:
@@ -104,7 +104,7 @@ php artisan key:generate
 
 ## Banco de dados
 
-O projeto utiliza SQLite no ambiente de desenvolvimento.
+O projeto utiliza MySQL.
 
 Crie o arquivo do banco caso ele ainda não exista:
 
@@ -115,7 +115,12 @@ touch database/database.sqlite
 No arquivo `.env`, configure:
 
 ```env
-DB_CONNECTION=sqlite
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=database_name
+DB_USERNAME=database_user
+DB_PASSWORD=database_password
 ```
 
 Execute as migrations:
