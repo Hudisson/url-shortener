@@ -1,59 +1,460 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# URL Shortener
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Um encurtador de URLs desenvolvido em **PHP com Laravel 12**, criado com foco em estudo, aplicação de conceitos de arquitetura de software e desenvolvimento de um MVP funcional.
 
-## About Laravel
+O projeto permite transformar URLs longas em URLs curtas e redirecionar o usuário para a URL original.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## Status
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+**MVP funcional**
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+O projeto atualmente possui o fluxo principal de criação e redirecionamento de URLs curtas.
 
-## Learning Laravel
+Funcionalidades adicionais poderão ser implementadas posteriormente, após a validação do MVP.
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework. You can also check out [Laravel Learn](https://laravel.com/learn), where you will be guided through building a modern Laravel application.
+---
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+## Funcionalidades
 
-## Laravel Sponsors
+* Criar URLs curtas a partir de uma URL original.
+* Gerar códigos curtos utilizando caracteres Base62.
+* Garantir que o código gerado seja único.
+* Validar a URL informada.
+* Redirecionar a URL curta para a URL original.
+* Contabilizar os acessos às URLs.
+* Permitir desativação de URLs.
+* Interface web para criação de URLs.
+* Resposta JSON para clientes de API.
+* Testes automatizados com PHPUnit.
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+---
 
-### Premium Partners
+## Tecnologias
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+* PHP 8+
+* Laravel 12
+* MySQL
+* PHPUnit
+* Vite
+* HTML
+* CSS
+* Blade
 
-## Contributing
+---
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+## Requisitos
 
-## Code of Conduct
+Antes de executar o projeto, certifique-se de possuir:
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+* PHP 8.2 ou superior
+* Composer
+* Node.js
+* NPM
 
-## Security Vulnerabilities
+Verifique as versões instaladas:
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+```bash
+php -v
+composer -V
+node -v
+npm -v
+```
 
-## License
+---
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+## Instalação
+
+Clone o repositório:
+
+```bash
+git clone https://github.com/SEU-USUARIO/url-shortener.git
+```
+
+Entre no diretório:
+
+```bash
+cd url-shortener
+```
+
+Instale as dependências do PHP:
+
+```bash
+composer install
+```
+
+Instale as dependências do frontend:
+
+```bash
+npm install
+```
+
+Crie o arquivo de ambiente:
+
+```bash
+cp .env.example .env
+```
+
+Gere a chave da aplicação:
+
+```bash
+php artisan key:generate
+```
+
+---
+
+## Banco de dados
+
+O projeto utiliza SQLite no ambiente de desenvolvimento.
+
+Crie o arquivo do banco caso ele ainda não exista:
+
+```bash
+touch database/database.sqlite
+```
+
+No arquivo `.env`, configure:
+
+```env
+DB_CONNECTION=sqlite
+```
+
+Execute as migrations:
+
+```bash
+php artisan migrate
+```
+
+---
+
+## Executando o projeto
+
+Para iniciar o servidor Laravel:
+
+```bash
+php artisan serve
+```
+
+Em outro terminal, execute o Vite:
+
+```bash
+npm run dev
+```
+
+Depois acesse:
+
+```text
+http://127.0.0.1:8000
+```
+
+---
+
+## Utilização
+
+### Interface Web
+
+Na página inicial, informe uma URL válida:
+
+```text
+https://example.com
+```
+
+Clique em:
+
+**Encurtar URL**
+
+O sistema irá gerar uma URL curta, por exemplo:
+
+```text
+http://127.0.0.1:8000/7kK5l1
+```
+
+Ao acessar a URL curta, o sistema redirecionará o usuário para a URL original.
+
+---
+
+## API HTTP
+
+O endpoint de criação também pode ser utilizado por clientes HTTP como Insomnia ou Thunder Client.
+
+### Criar URL curta
+
+```http
+POST /shorten
+```
+
+Parâmetro:
+
+```json
+{
+    "url": "https://example.com"
+}
+```
+
+Resposta:
+
+```json
+{
+    "short_code": "7kK5l1",
+    "original_url": "https://example.com"
+}
+```
+
+A URL curta pode então ser acessada através de:
+
+```text
+/{short_code}
+```
+
+Por exemplo:
+
+```text
+http://127.0.0.1:8000/7kK5l1
+```
+
+---
+
+## Testes
+
+O projeto possui testes unitários e testes de integração/feature.
+
+Para executar toda a suíte:
+
+```bash
+php artisan test
+```
+
+Os testes cobrem, entre outros:
+
+* geração de códigos;
+* geração de códigos únicos;
+* validação de URLs;
+* persistência de URLs;
+* criação de URLs curtas;
+* tratamento de URLs inexistentes;
+* tratamento de URLs inativas;
+* incremento do contador de cliques;
+* redirecionamento;
+* integração dos Controllers.
+
+---
+
+## Arquitetura
+
+O projeto utiliza uma separação de responsabilidades baseada principalmente em:
+
+```text
+Controller
+    ↓
+Service
+    ↓
+Repository
+    ↓
+Model
+    ↓
+Database
+```
+
+### Controllers
+
+Responsáveis pela camada HTTP.
+
+```text
+app/Http/Controllers/
+├── RedirectController.php
+└── ShortUrlController.php
+```
+
+### Services
+
+Concentram as regras de negócio:
+
+```text
+app/Services/
+├── ShortUrlRedirectService.php
+├── ShortUrlService.php
+└── UniqueShortCodeGenerator.php
+```
+
+### Repositories
+
+Responsáveis pelo acesso aos dados:
+
+```text
+app/Repositories/
+├── Contracts/
+│   └── ShortUrlRepositoryInterface.php
+└── ShortUrlRepository.php
+```
+
+### Validation
+
+Responsável pela validação das URLs:
+
+```text
+app/Validation/
+├── Contracts/
+│   └── UrlValidatorInterface.php
+└── UrlValidator.php
+```
+
+### Generators
+
+Responsáveis pela geração dos códigos:
+
+```text
+app/Support/
+├── Contracts/
+│   ├── ShortCodeGeneratorInterface.php
+│   └── UniqueShortCodeGeneratorInterface.php
+└── Generators/
+    └── ShortCodeGenerator.php
+```
+
+---
+
+## Fluxo de criação
+
+```text
+Usuário
+   ↓
+POST /shorten
+   ↓
+ShortUrlController
+   ↓
+ShortUrlService
+   ↓
+UrlValidator
+   ↓
+UniqueShortCodeGenerator
+   ↓
+ShortCodeGenerator
+   ↓
+ShortUrlRepository
+   ↓
+SQLite
+```
+
+---
+
+## Fluxo de redirecionamento
+
+```text
+GET /{shortCode}
+        ↓
+RedirectController
+        ↓
+ShortUrlRedirectService
+        ↓
+ShortUrlRepository
+        ↓
+ShortUrl
+        ↓
+Incrementa clicks
+        ↓
+Redirecionamento
+        ↓
+URL original
+```
+
+---
+
+## Estrutura principal
+
+```text
+app/
+├── Http/
+│   └── Controllers/
+├── Logging/
+├── Models/
+├── Providers/
+├── Repositories/
+├── Services/
+├── Support/
+└── Validation/
+
+database/
+├── factories/
+└── migrations/
+
+resources/
+├── css/
+├── js/
+└── views/
+    ├── layouts/
+    └── short-url/
+
+routes/
+├── console.php
+└── web.php
+
+tests/
+├── Feature/
+└── Unit/
+```
+
+---
+
+## Banco de dados
+
+A tabela principal do projeto é:
+
+```text
+short_urls
+```
+
+Com os seguintes campos:
+
+| Campo          | Descrição                  |
+| -------------- | -------------------------- |
+| `id`           | Identificador da URL       |
+| `original_url` | URL original               |
+| `short_code`   | Código único da URL curta  |
+| `clicks`       | Quantidade de acessos      |
+| `is_active`    | Indica se a URL está ativa |
+| `created_at`   | Data de criação            |
+| `updated_at`   | Data da última atualização |
+
+---
+
+## Escopo atual do MVP
+
+O objetivo desta primeira versão é validar o funcionamento básico de um serviço de encurtamento de URLs.
+
+Por isso, funcionalidades como:
+
+* autenticação de usuários;
+* painel administrativo;
+* histórico de URLs;
+* expiração automática;
+* limite de cliques;
+* analytics;
+* QR Code;
+* gerenciamento avançado de URLs;
+* cache;
+
+não fazem parte do escopo atual.
+
+Essas funcionalidades poderão ser adicionadas posteriormente.
+
+---
+
+## Objetivos do projeto
+
+Além de construir um serviço funcional, o projeto também tem como objetivo aplicar conceitos de:
+
+* Programação Orientada a Objetos;
+* princípios de responsabilidade única;
+* interfaces;
+* injeção de dependências;
+* Repository Pattern;
+* Service Layer;
+* testes automatizados;
+* validação;
+* separação de responsabilidades;
+* desenvolvimento incremental.
+
+---
+
+## Licença
+
+Este projeto foi desenvolvido para fins de estudo, prática e construção de portfólio.

@@ -1,11 +1,177 @@
-@import 'tailwindcss';
+* {
+    box-sizing: border-box;
+}
 
-@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
-@source '../../storage/framework/views/*.php';
-@source '../**/*.blade.php';
-@source '../**/*.js';
+.header {
+background: #18181b;
+color: #ffffff;
+}
 
-@theme {
-    --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
-        'Segoe UI Symbol', 'Noto Color Emoji';
+.header-content {
+width: 100%;
+max-width: 1200px;
+margin: 0 auto;
+padding: 18px 30px;
+}
+
+.logo {
+color: #ffffff;
+text-decoration: none;
+font-size: 20px;
+font-weight: bold;
+}
+
+.footer {
+padding: 20px 30px;
+text-align: center;
+color: #666;
+font-size: 14px;
+border-top: 1px solid #e5e5e5;
+}
+
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #f4f4f5;
+    min-height: 100vh;
+
+    display: flex;
+    flex-direction: column;
+}
+
+main{
+    flex: 1;
+}
+
+.container {
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+    margin-top: 100px;
+    padding: 30px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
+
+.card {
+    width: 100%;
+    background: #fff;
+    padding: 40px;
+    margin-bottom: 50px;
+    border-radius: 10px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
+
+h1 {
+    margin: 0;
+    text-align: center;
+}
+
+.description {
+    margin: 10px 0 30px;
+    text-align: center;
+    color: #666;
+}
+
+form {
+    margin-top: 20px;
+}
+
+label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+}
+
+input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 16px;
+}
+
+button {
+    width: 100%;
+    margin-top: 15px;
+    padding: 12px;
+
+
+    border: none;
+    border-radius: 6px;
+
+    background: #18181b;
+    color: #ffffff;
+
+    font-size: 16px;
+    cursor: pointer;
+
+
+}
+
+button:hover {
+    background: #27272a;
+}
+
+.error {
+    margin-bottom: 20px;
+    padding: 12px;
+
+    background: #fee2e2;
+    color: #991b1b;
+
+    border-radius: 6px;
+
+}
+
+.result {
+    margin-top: 25px;
+}
+
+.result label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+}
+
+.result input {
+    background: #f4f4f5;
+}
+
+.button,
+.secondary-button {
+    display: block;
+    width: 100%;
+    padding: 12px;
+    margin-top: 15px;
+
+    border-radius: 6px;
+
+    text-align: center;
+    text-decoration: none;
+
+    font-size: 16px;
+
+}
+
+.button {
+    background: #18181b;
+    color: #ffffff;
+}
+
+.button:hover {
+    background: #27272a;
+}
+
+.secondary-button {
+    color: #18181b;
+    border: 1px solid #ccc;
+}
+
+.secondary-button:hover {
+    background: #f4f4f5;
 }
