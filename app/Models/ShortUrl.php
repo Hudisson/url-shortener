@@ -18,12 +18,9 @@ class ShortUrl extends Model
      * * @var array<int, string>
      */
     protected $fillable = [
-        'user_id',      // ID do usuário que criou o link (opcional/estrangeiro)
         'original_url', // A URL de destino original
         'short_code',   // O código único gerado para o encurtador (ex: 'aB3X9')
         'clicks',       // Contador de acessos ao link
-        'expires_at',   // Data e hora de expiração do link
-        'max_clicks',   // Limite máximo de cliques permitidos
         'is_active',    // Status de ativação do link (ativo/inativo)
     ];
 
@@ -37,19 +34,8 @@ class ShortUrl extends Model
     protected function casts(): array
     {
         return [
-            'expires_at' => 'datetime', // Converte para uma instância do Carbon (data/hora)
+            'clicks' => 'integer',
             'is_active' => 'boolean',   // Converte 0/1 do banco para true/false do PHP
         ];
-    }
-
-    /**
-     * Relacionamento: Um link encurtado pertence a um usuário.
-     * * Define a relação inversa de "Muitos para Um" (BelongsTo).
-     *
-     * * @return BelongsTo
-     */
-    public function user(): BelongsTo
-    {
-        return $this->belongsTo(User::class);
     }
 }

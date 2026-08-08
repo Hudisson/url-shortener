@@ -29,4 +29,14 @@ final readonly class ShortUrlRepository implements ShortUrlRepositoryInterface
             ->where('short_code', $shortCode)
             ->exists();
     }
+
+    /**
+     * Busca uma URL encurtada pelo seu código.
+     */
+    public function findByShortCode(string $shortCode): ?ShortUrl
+    {
+        return ShortUrl::query()
+        ->where('short_code', $shortCode)
+        ->first();
+    }
 }

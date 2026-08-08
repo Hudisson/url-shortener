@@ -17,4 +17,9 @@ interface ShortUrlRepositoryInterface
      * Verifica se já existe uma URL com o short_code gerado
      */
     public function existsByShortCode(string $shortCode): bool;
+
+    /**
+     * Busca uma URL encurtada pelo seu código.
+     */
+    public function findByShortCode(string $shortCode): ?ShortUrl;
 }
