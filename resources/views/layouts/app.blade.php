@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<html lang="pt-br">
+<html lang="pt-BR">
 
 <head>
     <meta charset="UTF-8">
@@ -8,7 +8,8 @@
 
     <title>{{ $title ?? 'URL Shortener' }}</title>
 
-    @vite('resources/css/app.css')
+
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
 
 </head>
 
@@ -19,6 +20,26 @@
             <a href="{{ url('/') }}" class="logo">
                 URL Shortener
             </a>
+
+            <nav class="header-nav">
+                <a href="{{ url('/') }}">
+                    Encurtar URL
+                </a>
+
+                <a href="#">
+                    Entrar
+                </a>
+
+                <a href="#" class="link-de-cadastro">
+                    Cadastre-se grátis
+                </a>
+
+                <a href="#">
+                    Sobre
+                </a>
+
+            </nav>
+
         </div>
     </header>
 

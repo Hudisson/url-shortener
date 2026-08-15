@@ -1,14 +1,22 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container">
-        <section class="card">
+    <div class="public-page">
 
-            <h1>URL Shortener</h1>
+        <x-ad-placeholder />
 
-            <p class="description">
-                Encurte sua URL de forma simples e rápida.
-            </p>
+        <section class="shortener-card">
+
+            <div class="shortener-header">
+
+                <h1>Encurte suas URLs</h1>
+
+                <p>
+                    Transforme links longos em URLs curtas de forma
+                    simples, rápida e gratuita.
+                </p>
+
+            </div>
 
             @if ($errors->any())
                 <div class="error">
@@ -17,18 +25,40 @@
             @endif
 
             <form action="{{ url('/shorten') }}" method="POST">
+
                 @csrf
 
-                <label for="url">URL</label>
+                <div class="form-group">
 
-                <input type="url" id="url" name="url" placeholder="https://example.com"
-                    value="{{ old('url') }}" required>
+                    <label for="url">
+                        URL original
+                    </label>
+
+                    <input type="url" id="url" name="url" placeholder="https://exemplo.com/minha-url-longa"
+                        value="{{ old('url') }}" required>
+
+                </div>
 
                 <button type="submit">
                     Encurtar URL
                 </button>
+
             </form>
 
         </section>
+
+        <div class="public-description">
+
+            <h2>Simples e rápido</h2>
+
+            <p>
+                Cole sua URL, clique em encurtar e receba
+                seu novo link imediatamente.
+            </p>
+
+        </div>
+
+        <x-ad-placeholder />
+
     </div>
 @endsection
