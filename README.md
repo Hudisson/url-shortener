@@ -106,11 +106,7 @@ php artisan key:generate
 
 O projeto utiliza MySQL.
 
-Crie o arquivo do banco caso ele ainda não exista:
-
-```bash
-touch database/database.sqlite
-```
+Crie o banco de dados caso ele ainda não exista:
 
 No arquivo `.env`, configure:
 
