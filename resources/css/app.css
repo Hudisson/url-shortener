@@ -1,132 +1,325 @@
+/* =========================
+   Reset da página
+   ========================= */
+
 * {
     box-sizing: border-box;
 }
 
-.header {
-background: #18181b;
-color: #ffffff;
-}
-
-.header-content {
-width: 100%;
-max-width: 1200px;
-margin: 0 auto;
-padding: 18px 30px;
-}
-
-.logo {
-color: #ffffff;
-text-decoration: none;
-font-size: 20px;
-font-weight: bold;
-}
-
-.footer {
-padding: 20px 30px;
-text-align: center;
-color: #666;
-font-size: 14px;
-border-top: 1px solid #e5e5e5;
-}
-
-
+html,
 body {
     margin: 0;
+    padding: 0;
+    min-height: 100%;
+}
+
+body {
     font-family: Arial, sans-serif;
     background: #f4f4f5;
-    min-height: 100vh;
+    color: #18181b;
 
     display: flex;
     flex-direction: column;
+
+    min-height: 100vh;
 }
 
-main{
+main {
     flex: 1;
 }
 
-.container {
+
+/* =========================
+   Cabeçalho
+   ========================= */
+
+.header {
+    background: #18181b;
+    color: #ffffff;
+}
+
+.header-content {
     width: 100%;
-    max-width: 600px;
+    max-width: 1200px;
     margin: 0 auto;
-    margin-top: 100px;
-    padding: 30px;
+
+    padding: 18px 30px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 30px;
+}
+
+.logo {
+    color: #ffffff;
+    text-decoration: none;
+
+    font-size: 20px;
+    font-weight: bold;
+
+    white-space: nowrap;
+}
+
+.header-nav {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+
+    gap: 24px;
+}
+
+.header-nav a {
+    color: #ffffff;
+    text-decoration: none;
+
+    font-size: 15px;
+
+    white-space: nowrap;
+
+    transition: opacity 0.2s ease;
+}
+
+.header-nav a:hover {
+    opacity: 0.75;
+}
+
+.link-de-cadastro {
+    padding: 9px 14px;
+
+    border: 1px solid #ffffff;
+    border-radius: 6px;
+}
+
+.link-de-cadastro:hover {
+    opacity: 1;
+    background: #ffffff;
+    color: #18181b;
+}
+
+
+/* =========================
+   Rodapé
+   ========================= */
+
+.footer {
+    padding: 20px 30px;
+
+    text-align: center;
+
+    color: #666;
+    font-size: 14px;
+
+    background: #ffffff;
+
+    border-top: 1px solid #e5e5e5;
+}
+
+.footer p {
+    margin: 0;
+}
+
+
+/* =========================
+   Página pública
+   ========================= */
+
+.public-page {
+    width: 100%;
+    max-width: 1200px;
+
+    margin: 0 auto;
+
+    padding: 40px 30px 60px;
+}
+
+
+/* =========================
+   Anúncio
+   ========================= */
+
+.ad-placeholder {
+    width: 100%;
+    min-height: 90px;
+
+    margin: 0 auto 40px;
+
+    border: 1px dashed #c7c7c7;
+    border-radius: 8px;
+
+    background: #fafafa;
 
     display: flex;
     align-items: center;
     justify-content: center;
 
+    color: #999;
+    font-size: 13px;
 }
 
-.card {
+.public-page > .ad-placeholder:last-child {
+    margin-top: 50px;
+    margin-bottom: 0;
+}
+
+
+/* =========================
+   Shortener Card
+   ========================= */
+
+.shortener-card {
     width: 100%;
-    background: #fff;
-    padding: 40px;
-    margin-bottom: 50px;
-    border-radius: 10px;
+    max-width: 680px;
+
+    margin: 0 auto;
+    padding: 45px;
+
+    background: #ffffff;
+
+    border-radius: 12px;
+
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
 }
 
-h1 {
+.shortener-header {
+    margin-bottom: 30px;
+
+    text-align: center;
+}
+
+.shortener-header h1 {
     margin: 0;
-    text-align: center;
+
+    font-size: 34px;
+    line-height: 1.2;
 }
 
-.description {
-    margin: 10px 0 30px;
-    text-align: center;
+.shortener-header p {
+    margin: 12px 0 0;
+
     color: #666;
+
+    font-size: 16px;
+    line-height: 1.6;
 }
 
-form {
-    margin-top: 20px;
+
+/* =========================
+   Form do card
+   ========================= */
+
+.form-group {
+    margin-bottom: 20px;
 }
 
-label {
+.form-group label {
     display: block;
+
     margin-bottom: 8px;
+
     font-weight: bold;
 }
 
-input {
+.form-group input {
     width: 100%;
-    padding: 12px;
+
+    padding: 13px 14px;
+
     border: 1px solid #ccc;
-    border-radius: 6px;
+    border-radius: 7px;
+
     font-size: 16px;
+
+    outline: none;
+
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease;
 }
+
+.form-group input:focus {
+    border-color: #18181b;
+
+    box-shadow: 0 0 0 3px rgba(24, 24, 27, 0.08);
+}
+
+
+/* =========================
+   Button
+   ========================= */
 
 button {
     width: 100%;
-    margin-top: 15px;
-    padding: 12px;
 
+    padding: 13px;
 
     border: none;
-    border-radius: 6px;
+    border-radius: 7px;
 
     background: #18181b;
     color: #ffffff;
 
     font-size: 16px;
+    font-weight: 600;
+
     cursor: pointer;
 
-
+    transition: background 0.2s ease;
 }
 
 button:hover {
     background: #27272a;
 }
 
+
+/* =========================
+   Error
+   ========================= */
+
 .error {
     margin-bottom: 20px;
-    padding: 12px;
+    padding: 12px 14px;
 
     background: #fee2e2;
     color: #991b1b;
 
-    border-radius: 6px;
+    border-radius: 7px;
 
+    font-size: 14px;
 }
+
+
+/* =========================
+   Descrição pública da página
+   ========================= */
+
+.public-description {
+    max-width: 680px;
+
+    margin: 45px auto 0;
+
+    text-align: center;
+}
+
+.public-description h2 {
+    margin: 0 0 10px;
+
+    font-size: 22px;
+}
+
+.public-description p {
+    margin: 0;
+
+    color: #666;
+
+    line-height: 1.6;
+}
+
+
+/* =========================
+   Página Result
+   ========================= */
 
 .result {
     margin-top: 25px;
@@ -134,28 +327,47 @@ button:hover {
 
 .result label {
     display: block;
+
     margin-bottom: 8px;
+
     font-weight: bold;
 }
 
 .result input {
+    width: 100%;
+
+    padding: 12px;
+
+    border: 1px solid #ccc;
+    border-radius: 7px;
+
     background: #f4f4f5;
+
+    font-size: 16px;
 }
+
+
+/* =========================
+   Result Buttons
+   ========================= */
 
 .button,
 .secondary-button {
     display: block;
+
     width: 100%;
-    padding: 12px;
+
+    padding: 13px;
+
     margin-top: 15px;
 
-    border-radius: 6px;
+    border-radius: 7px;
 
     text-align: center;
     text-decoration: none;
 
     font-size: 16px;
-
+    font-weight: 600;
 }
 
 .button {
@@ -169,9 +381,152 @@ button:hover {
 
 .secondary-button {
     color: #18181b;
+
     border: 1px solid #ccc;
+
+    background: #ffffff;
 }
 
 .secondary-button:hover {
     background: #f4f4f5;
+}
+
+/* =========================
+   Copy URL
+   ========================= */
+
+.copy-container {
+    width: 100%;
+
+    display: flex;
+    align-items: stretch;
+
+    gap: 10px;
+}
+
+.copy-container input {
+    flex: 1;
+    min-width: 0;
+}
+
+.copy-container .copy-button {
+    width: auto;
+    flex: 0 0 auto;
+
+    margin-top: 0;
+    padding: 12px 18px;
+
+    white-space: nowrap;
+}
+
+.copy-container .copy-button.copied {
+    background: #166534;
+}
+
+/* =========================
+   Responsividade - Tablet
+   ========================= */
+
+@media (max-width: 900px) {
+
+    .header-content {
+        padding: 16px 20px;
+    }
+
+    .header-nav {
+        gap: 15px;
+    }
+
+    .header-nav a {
+        font-size: 14px;
+    }
+
+    .link-de-cadastro {
+        padding: 8px 10px;
+    }
+}
+
+
+/* =========================
+   Responsividade - Mobile
+   ========================= */
+
+@media (max-width: 700px) {
+
+    .header-content {
+        flex-direction: column;
+        align-items: center;
+
+        gap: 15px;
+    }
+
+    .header-nav {
+        width: 100%;
+
+        justify-content: center;
+
+        flex-wrap: wrap;
+
+        gap: 12px 18px;
+    }
+
+    .header-nav a {
+        font-size: 14px;
+    }
+}
+
+
+/* =========================
+   Responsividade - Small Mobile
+   ========================= */
+@media (max-width: 480px) {
+
+    .header-content {
+        padding: 15px;
+    }
+
+    .logo {
+        font-size: 18px;
+    }
+
+    .header-nav {
+        gap: 10px 14px;
+    }
+
+    .header-nav a {
+        font-size: 13px;
+    }
+
+    .link-de-cadastro {
+        padding: 7px 9px;
+    }
+
+    .public-page {
+        padding: 25px 15px 40px;
+    }
+
+    .shortener-card {
+        padding: 25px 20px;
+    }
+
+    .shortener-header h1 {
+        font-size: 25px;
+    }
+
+    .shortener-header p {
+        font-size: 15px;
+    }
+
+    .ad-placeholder {
+        min-height: 70px;
+    }
+
+    .copy-container {
+        flex-direction: column;
+    }
+
+    .copy-container .copy-button {
+        width: 100%;
+        flex: none;
+    }
 }
