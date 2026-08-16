@@ -34,7 +34,7 @@
                     Cadastre-se grátis
                 </a>
 
-                <a href="#">
+                <a href="{{ route('about') }}">
                     Sobre
                 </a>
 
