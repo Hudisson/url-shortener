@@ -1,4 +1,5 @@
 import './bootstrap';
+import './password-toggle';
 
 const copyButton = document.getElementById('copy-button');
 const shortUrlInput = document.getElementById('short-url');
