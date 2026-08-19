@@ -30,12 +30,16 @@
                     Entrar
                 </a>
 
-                <a href="#" class="link-de-cadastro">
+                <a href="{{ route('register') }}" class="link-de-cadastro">
                     Cadastre-se grátis
                 </a>
 
                 <a href="{{ route('about') }}">
                     Sobre
+                </a>
+
+                <a href="#">
+                    Contato
                 </a>
 
             </nav>

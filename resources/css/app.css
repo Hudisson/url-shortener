@@ -459,6 +459,70 @@ button:hover {
 }
 
 /* =========================
+   Página de cadastro de usuário
+   ========================= */
+
+/* =========================
+   Campo de senha
+   ========================= */
+
+.password-container {
+    position: relative;
+    width: 100%;
+}
+
+.password-container input {
+    width: 100%;
+    padding-right: 50px;
+}
+
+.password-toggle {
+    position: absolute;
+
+    top: 50%;
+    right: 12px;
+
+    transform: translateY(-50%);
+
+    width: auto;
+    margin: 0;
+    padding: 4px;
+
+    border: none;
+    border-radius: 4px;
+
+    background: transparent;
+    color: #666;
+
+    font-size: 18px;
+    line-height: 1;
+
+    cursor: pointer;
+}
+
+.password-toggle:hover {
+    background: transparent;
+    color: #18181b;
+}
+
+/* =========================
+   Mensagem de sucesso ao cadastrar usuário
+   ========================= */
+
+.success {
+    margin-bottom: 20px;
+    padding: 12px 14px;
+
+    background: #dcfce7;
+    color: #166534;
+
+    border: 1px solid #bbf7d0;
+    border-radius: 7px;
+
+    font-size: 14px;
+}
+
+/* =========================
    Responsividade - Tablet
    ========================= */
 
