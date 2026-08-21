@@ -14,8 +14,8 @@ passwordToggleButtons.forEach((button) => {
         const passwordVisible = input.type === 'text';
 
         input.type = passwordVisible ? 'password' : 'text';
-        
-        button.innerHTML = passwordVisible ? '&#128065;' : '&#128584;';
+
+        button.innerHTML = passwordVisible ? '<i class="fa-solid fa-eye"></i>' : '<i class="fa-solid fa-eye-slash"></i>';
 
         button.setAttribute(
             'aria-label',

@@ -65,7 +65,7 @@
                     <div class="password-container">
                         <input type="password" id="password" name="password" required autocomplete="new-password">
                         <button type="button" class="password-toggle" data-target="password" aria-label="Mostrar senha">
-                            &#128065;
+                            <i class="fa-solid fa-eye"></i>
                         </button>
                     </div>
 
@@ -84,7 +84,7 @@
 
                         <button type="button" class="password-toggle" data-target="password_confirmation"
                             aria-label="Mostrar senha">
-                            &#128065;
+                            <i class="fa-solid fa-eye"></i>
                         </button>
                     </div>
 
