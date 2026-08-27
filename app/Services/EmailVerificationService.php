@@ -7,6 +7,7 @@ namespace App\Services;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 
+
 final class EmailVerificationService
 {
   private const CODE_LENGTH = 6;
@@ -27,7 +28,6 @@ final class EmailVerificationService
 
   }
 
-
   // Método para gerar o código (aleatório)
   private function generateCode(): string
   {
@@ -36,4 +36,27 @@ final class EmailVerificationService
 
     return (string) random_int($min, $max);
   }
+
+
+  // Método para veficar o código de validação
+  public function verify(User $user, string $code): bool
+  {
+    $verificationCode = $user->emailVerificationCodes()
+        ->latest()
+        ->first();
+
+    if($verificationCode === null){
+        return false;
+    }
+
+    if($verificationCode->expires_at->isPast()){
+        return false;
+    }
+
+    return Hash::check(
+        $code,
+        $verificationCode->code
+    );
+  }
+
 }
