@@ -22,6 +22,15 @@
                 </div>
             @endif
 
+
+            @if (session('error'))
+                <div class="error">
+                    {{ session('error') }}
+                </div>
+            @endif
+
+
+
             <form method="POST" action="{{ route('verification.store') }}">
 
                 @csrf
@@ -47,6 +56,14 @@
                     Verificar conta
                 </button>
 
+            </form>
+
+            {{-- Reenviar código de verificação de conta --}}
+            <form method="POST" action="{{ route('verification.resend') }}">
+                @csrf
+                <button type="submit" class="btn_resend-code">
+                    Reenviar código
+                </button>
             </form>
 
         </section>

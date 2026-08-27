@@ -15,8 +15,7 @@ final class EmailVerificationController extends Controller
 {
     public function __construct(
         private readonly EmailVerificationService $emailVerificationService,
-    ) {
-    }
+    ) {}
 
     public function create(): View
     {
@@ -81,5 +80,37 @@ final class EmailVerificationController extends Controller
                 'success',
                 'Conta verificada com sucesso.'
             );
+    }
+
+    // Método de reenvio de código de verificação
+    public function resend(Request $request): RedirectResponse
+    {
+        $userId = $request->session()->get('email_verification_user_id');
+
+        if ($userId === null) {
+            return redirect()->route('register')->with('error', 'Nenhuma conta aguardando verificação.');
+        }
+
+        $user = User::find($userId);
+
+        if ($user === null) {
+            return redirect()->route('register')->with('error', 'Usuário não encontrado.');
+        }
+
+        if ($user->email_verified_at !== null) {
+            return redirect()->route('register')->with('success', 'Sua conta já foi verificada.');
+        }
+
+        try {
+            $this->emailVerificationService->resend($user);
+        } catch (\RuntimeException $exception) {
+            return redirect()
+                ->route('verification.create')
+                ->with('error', $exception->getMessage());
+        }
+
+        return redirect()
+            ->route('verification.create')
+            ->with('success', 'Um novo código de verificação foi enviado para seu e-mail.');
     }
 }

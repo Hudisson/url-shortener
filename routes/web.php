@@ -23,6 +23,11 @@ Route::post(
     [EmailVerificationController::class, 'store']
 )->name('verification.store');
 
+Route::post(
+    '/verificar-email/reenviar',
+    [EmailVerificationController::class, 'resend']
+)->name('verification.resend');
+
 
 // Criar conta
 Route::get('/register', [RegisterController::class, 'create'])
