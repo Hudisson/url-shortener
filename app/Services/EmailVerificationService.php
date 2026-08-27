@@ -64,4 +64,28 @@ final class EmailVerificationService
             $verificationCode->code
         );
     }
+
+    // Método para reenvio de código de verificação
+    public function resend(User $user): void
+    {
+
+        $lastCode = $user->emailVerificationCodes()->latest()->first();
+        
+        if ($lastCode !== null && $lastCode->created_at->addSeconds(60)->isFuture()) {
+            throw new \RuntimeException('Aguarde 60 segundos antes de solicitar um novo código.');
+        }
+
+        $user->emailVerificationCodes()->delete();
+
+        $code = $this->generateCode();
+
+        $user->emailVerificationCodes()->create([
+            'code' => Hash::make($code),
+            'expires_at' => now()->addMinutes(self::EXPIRATION_MINUTES),
+        ]);
+
+        Mail::to($user->email)->send(
+            new EmailVerificationMail($user, $code)
+        );
+    }
 }

@@ -272,6 +272,13 @@ button {
     cursor: pointer;
 
     transition: background 0.2s ease;
+
+
+}
+
+.btn_resend-code{
+    margin-top: 10px;
+    background-color: #1e5b74;
 }
 
 button:hover {
