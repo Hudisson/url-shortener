@@ -15,7 +15,7 @@ final class RegisterController extends Controller
 
     public function __construct(
         private readonly RegisterService $service
-    ){}
+    ) {}
 
     public function create(): View
     {
@@ -30,14 +30,18 @@ final class RegisterController extends Controller
             'password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);
 
-        $this->service->create(
+        $user = $this->service->create(
             $validated['name'],
             $validated['email'],
             $validated['password'],
         );
 
+        session([
+            'email_verification_user_id' => $user->id,
+        ]);
+
         return redirect()
-            ->route('register')
+            ->route('verification.create')
             ->with('success', 'Cadastro realizado com sucesso. Verifique seu e-mail para validar sua conta.');
     }
 }
