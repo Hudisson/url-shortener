@@ -26,7 +26,7 @@
                     Encurtar URL
                 </a>
 
-                <a href="#">
+                <a href="{{ route('login') }}">
                     Entrar
                 </a>
 

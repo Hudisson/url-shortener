@@ -1,72 +1,134 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="public-page">
 
-        <section class="shortener-card">
+<div class="public-page">
 
-            <div class="shortener-header">
+    <section class="shortener-card">
 
-                <h1>Verifique sua conta</h1>
+        <div class="shortener-header">
 
-                <p>
-                    Enviamos um código de verificação para o seu endereço de e-mail.
-                    Informe o código abaixo para ativar sua conta.
-                </p>
+            <h1>Verifique sua conta</h1>
+
+            <p>
+                Informe o e-mail utilizado no cadastro e o código
+                recebido para ativar sua conta.
+            </p>
+
+        </div>
+
+        @if (session('success'))
+            <div class="success">
+                {{ session('success') }}
+            </div>
+        @endif
+
+        @if (session('error'))
+            <div class="error">
+                {{ session('error') }}
+            </div>
+        @endif
+
+
+        {{-- E-mail da conta --}}
+        <div class="form-group">
+
+            <label for="email">
+                E-mail
+            </label>
+
+            <input
+                type="email"
+                id="email"
+                name="email"
+                form="verification-form"
+                value="{{ old('email') }}"
+                autocomplete="email"
+                placeholder="Digite o e-mail utilizado no cadastro"
+            >
+
+            @error('email')
+                <div class="error">
+                    {{ $message }}
+                </div>
+            @enderror
+
+        </div>
+
+
+        {{-- Formulário de verificação --}}
+        <form
+            method="POST"
+            action="{{ route('verification.store') }}"
+            id="verification-form"
+        >
+
+            @csrf
+
+            <div class="form-group">
+
+                <label for="code">
+                    Código de verificação
+                </label>
+
+                <input
+                    type="text"
+                    id="code"
+                    name="code"
+                    maxlength="6"
+                    inputmode="numeric"
+                    autocomplete="one-time-code"
+                    placeholder="Digite o código de 6 dígitos"
+                    value="{{ old('code') }}"
+                >
+
+                @error('code')
+                    <div class="error">
+                        {{ $message }}
+                    </div>
+                @enderror
 
             </div>
 
-            @if (session('success'))
-                <div class="success">
-                    {{ session('success') }}
-                </div>
-            @endif
+            <button type="submit">
+                Verificar conta
+            </button>
+
+        </form>
 
 
-            @if (session('error'))
-                <div class="error">
-                    {{ session('error') }}
-                </div>
-            @endif
+        {{-- Formulário de reenvio --}}
+        <form
+            method="POST"
+            action="{{ route('verification.resend') }}"
+            id="resend-form"
+        >
 
+            @csrf
 
+            <input
+                type="hidden"
+                name="email"
+                id="resend-email"
+            >
 
-            <form method="POST" action="{{ route('verification.store') }}">
+            <button type="submit" class="btn_resend-code">
+                Reenviar código
+            </button>
 
-                @csrf
+        </form>
 
-                <div class="form-group">
+    </section>
 
-                    <label for="code">
-                        Código de verificação
-                    </label>
+</div>
 
-                    <input type="text" id="code" name="code" maxlength="6" inputmode="numeric"
-                        autocomplete="one-time-code" placeholder="Digite o código de 6 dígitos" value="{{ old('code') }}">
+<script>
+    const emailInput = document.getElementById('email');
+    const resendEmail = document.getElementById('resend-email');
 
-                    @error('code')
-                        <div class="error">
-                            {{ $message }}
-                        </div>
-                    @enderror
+    document.getElementById('resend-form').addEventListener('submit', function () {
+        resendEmail.value = emailInput.value;
+    });
+</script>
 
-                </div>
-
-                <button type="submit">
-                    Verificar conta
-                </button>
-
-            </form>
-
-            {{-- Reenviar código de verificação de conta --}}
-            <form method="POST" action="{{ route('verification.resend') }}">
-                @csrf
-                <button type="submit" class="btn_resend-code">
-                    Reenviar código
-                </button>
-            </form>
-
-        </section>
-
-    </div>
 @endsection
