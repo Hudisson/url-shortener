@@ -30,7 +30,8 @@
             <div class="form-group">
                 <label>Cadastro realizado em</label>
 
-                <input type="text" value="{{ $user->created_at->format('d/m/Y') }} às {{ $user->created_at->format('H:i') }}" disabled>
+                <input type="text"
+                    value="{{ $user->created_at->format('d/m/Y') }} às {{ $user->created_at->format('H:i') }}" disabled>
             </div>
 
             <div class="form-group">
