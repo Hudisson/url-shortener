@@ -248,7 +248,7 @@ Botão Sair
     border-radius: 5px;
 }
 
-.linha-horizontal-meu-auth{
+.linha-horizontal-meu-auth {
     border: none;
     height: 2px;
     background-color: #e4e8ec;
@@ -265,6 +265,105 @@ Dropdown aberto
 
 .account-menu.is-open .account-button i {
     transform: rotate(180deg);
+}
+
+
+/* =========================
+   Lista de URLs do Dashboard
+   ========================= */
+
+.short-url-list {
+    width: 100%;
+
+    margin-top: 30px;
+}
+
+.short-url-item {
+    width: 100%;
+
+    padding: 18px 20px;
+
+    background: #f8f8f8;
+
+    border: 1px solid #e4e4e7;
+    border-radius: 8px;
+
+    margin-bottom: 12px;
+
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.short-url-item:hover {
+    border-color: #c4c4c7;
+
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+}
+
+.short-url-info {
+    min-width: 0;
+}
+
+.short-url-code {
+    display: inline-block;
+
+    color: #18181b;
+
+    font-size: 16px;
+    font-weight: 700;
+
+    text-decoration: none;
+
+    word-break: break-all;
+}
+
+.short-url-code:hover {
+    text-decoration: underline;
+}
+
+.short-url-original {
+    margin: 8px 0 0;
+
+    color: #666;
+
+    font-size: 14px;
+    line-height: 1.5;
+
+    word-break: break-all;
+}
+
+.short-url-meta {
+    display: flex;
+    align-items: center;
+
+    gap: 20px;
+
+    margin-top: 14px;
+    padding-top: 12px;
+
+    border-top: 1px solid #e4e4e7;
+
+    color: #777;
+
+    font-size: 13px;
+}
+
+.short-url-empty {
+    padding: 25px;
+
+    border: 1px dashed #c7c7c7;
+    border-radius: 8px;
+
+    background: #fafafa;
+
+    text-align: center;
+
+    color: #777;
+}
+
+.short-url-empty p {
+    margin: 0;
 }
 
 
