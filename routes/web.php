@@ -6,6 +6,7 @@ use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\RedirectController;
 use App\Http\Controllers\ShortUrlController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ProfileController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -46,6 +47,11 @@ Route::post('/logout', [LoginController::class, 'destroy'])
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware('auth')->name('dashboard');
+
+// Perfil
+Route::get('/profile', [ProfileController::class, 'show'])
+    ->middleware('auth')
+    ->name('profile');
 
 // Encurtar URL
 Route::post('/shorten', [ShortUrlController::class, 'store']);
