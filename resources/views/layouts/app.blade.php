@@ -61,7 +61,7 @@
                                 Dashboard
                             </a>
 
-                            <a href="#">
+                            <a href="{{ route('profile') }}">
                                 Perfil
                             </a>
 
