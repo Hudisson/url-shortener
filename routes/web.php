@@ -7,6 +7,7 @@ use App\Http\Controllers\RedirectController;
 use App\Http\Controllers\ShortUrlController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\DashboardController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -44,9 +45,9 @@ Route::post('/logout', [LoginController::class, 'destroy'])
     ->name('logout');
 
 // Dashboard
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware('auth')->name('dashboard');
+Route::get('/dashboard', [DashboardController::class, 'index'])
+    ->middleware('auth')
+    ->name('dashboard');
 
 // Perfil
 Route::get('/profile', [ProfileController::class, 'show'])
