@@ -19,7 +19,7 @@ final readonly class ShortUrlService
         private ShortUrlRepositoryInterface $repository,
     ) {}
 
-    public function create(string $originalUrl): ShortUrl
+    public function create(string $originalUrl, ?int $userId = null,): ShortUrl
     {
 
         $this->validator->validate($originalUrl);
@@ -28,6 +28,7 @@ final readonly class ShortUrlService
             'Short URL creation started.',
             [
                 'original_url' => $originalUrl,
+                'user_id' => $userId,
             ]
         );
 
@@ -40,7 +41,7 @@ final readonly class ShortUrlService
             ]
         );
 
-        $shortUrl = $this->buildShortUrl($originalUrl, $shortCode);
+        $shortUrl = $this->buildShortUrl($originalUrl, $shortCode, $userId);
 
         $shortUrl = $this->repository->save($shortUrl);
 
@@ -48,6 +49,7 @@ final readonly class ShortUrlService
             'Short URL created successfully.',
             [
                 'short_code' => $shortUrl->short_code,
+                'user_id' => $shortUrl->user_id,
             ]
         );
 
@@ -57,9 +59,11 @@ final readonly class ShortUrlService
     /**
      * Método responsável por montar a entidade ShortUrl com os valores iniciais.
      */
-    private function buildShortUrl(string $originalUrl, string $shortCode): ShortUrl
+    private function buildShortUrl(string $originalUrl, string $shortCode, ?int $userId,): ShortUrl
     {
         $shortUrl = new ShortUrl();
+
+        $shortUrl->user_id = $userId;
         $shortUrl->original_url = $originalUrl;
         $shortUrl->short_code = $shortCode;
         $shortUrl->clicks = 0;

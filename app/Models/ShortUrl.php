@@ -18,6 +18,7 @@ class ShortUrl extends Model
      * * @var array<int, string>
      */
     protected $fillable = [
+        'user_id',       // Id do usuário que encurtou (null se fou um visitante)
         'original_url', // A URL de destino original
         'short_code',   // O código único gerado para o encurtador (ex: 'aB3X9')
         'clicks',       // Contador de acessos ao link
@@ -37,5 +38,10 @@ class ShortUrl extends Model
             'clicks' => 'integer',
             'is_active' => 'boolean',   // Converte 0/1 do banco para true/false do PHP
         ];
+    }
+
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
     }
 }
