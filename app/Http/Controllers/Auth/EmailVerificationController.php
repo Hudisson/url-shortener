@@ -5,11 +5,11 @@ declare(strict_types=1);
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use App\Models\User;
 use App\Services\EmailVerificationService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
+use RuntimeException;
 
 final class EmailVerificationController extends Controller
 {
@@ -17,14 +17,25 @@ final class EmailVerificationController extends Controller
         private readonly EmailVerificationService $emailVerificationService,
     ) {}
 
+    /**
+     * Exibe a página de verificação de e-mail.
+     */
     public function create(): View
     {
         return view('auth.verify-email');
     }
 
+    /**
+     * Verifica o código informado pelo usuário.
+     */
     public function store(Request $request): RedirectResponse
     {
         $validated = $request->validate([
+            'email' => [
+                'required',
+                'email',
+                'max:255',
+            ],
             'code' => [
                 'required',
                 'string',
@@ -32,32 +43,8 @@ final class EmailVerificationController extends Controller
             ],
         ]);
 
-        $userId = session('email_verification_user_id');
-
-        if ($userId === null) {
-            return redirect()
-                ->route('register')
-                ->with(
-                    'error',
-                    'Nenhuma solicitação de verificação foi encontrada.'
-                );
-        }
-
-        $user = User::find((int) $userId);
-
-        if ($user === null) {
-            session()->forget('email_verification_user_id');
-
-            return redirect()
-                ->route('register')
-                ->with(
-                    'error',
-                    'Usuário não encontrado.'
-                );
-        }
-
-        $isValid = $this->emailVerificationService->verify(
-            $user,
+        $isValid = $this->emailVerificationService->verifyByEmail(
+            $validated['email'],
             $validated['code'],
         );
 
@@ -65,14 +52,11 @@ final class EmailVerificationController extends Controller
             return back()
                 ->withErrors([
                     'code' => 'Código inválido ou expirado.',
-                ]);
+                ])
+                ->withInput(
+                    $request->only('email')
+                );
         }
-
-        $user->update([
-            'email_verified_at' => now(),
-        ]);
-
-        session()->forget('email_verification_user_id');
 
         return redirect()
             ->route('verification.create')
@@ -82,35 +66,37 @@ final class EmailVerificationController extends Controller
             );
     }
 
-    // Método de reenvio de código de verificação
+    /**
+     * Solicita o reenvio do código de verificação.
+     */
     public function resend(Request $request): RedirectResponse
     {
-        $userId = $request->session()->get('email_verification_user_id');
-
-        if ($userId === null) {
-            return redirect()->route('register')->with('error', 'Nenhuma conta aguardando verificação.');
-        }
-
-        $user = User::find($userId);
-
-        if ($user === null) {
-            return redirect()->route('register')->with('error', 'Usuário não encontrado.');
-        }
-
-        if ($user->email_verified_at !== null) {
-            return redirect()->route('register')->with('success', 'Sua conta já foi verificada.');
-        }
+        $validated = $request->validate([
+            'email' => [
+                'required',
+                'email',
+                'max:255',
+            ],
+        ]);
 
         try {
-            $this->emailVerificationService->resend($user);
-        } catch (\RuntimeException $exception) {
+            $this->emailVerificationService->resendByEmail(
+                $validated['email']
+            );
+        } catch (RuntimeException $exception) {
             return redirect()
                 ->route('verification.create')
-                ->with('error', $exception->getMessage());
+                ->with(
+                    'error',
+                    $exception->getMessage()
+                );
         }
 
         return redirect()
             ->route('verification.create')
-            ->with('success', 'Um novo código de verificação foi enviado para seu e-mail.');
+            ->with(
+                'success',
+                'Se existir uma conta associada a este e-mail, um novo código de verificação será enviado.'
+            );
     }
 }
