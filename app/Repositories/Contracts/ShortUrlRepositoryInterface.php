@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Repositories\Contracts;
 
 use App\Models\ShortUrl;
+use Illuminate\Database\Eloquent\Collection;
 
 interface ShortUrlRepositoryInterface
 {
@@ -22,4 +23,9 @@ interface ShortUrlRepositoryInterface
      * Busca uma URL encurtada pelo seu código.
      */
     public function findByShortCode(string $shortCode): ?ShortUrl;
+
+    /**
+     * Busca todas as URLs encurtadas de um usuário.
+     */
+    public function findByUserId(int $userId): Collection;
 }
