@@ -40,6 +40,7 @@ final class LoginController extends Controller
             auth()->login($user);
 
             return redirect()->route('dashboard');
+            
         } catch (RuntimeException $exception) {
             return back()
                 ->withInput($request->only('email'))
