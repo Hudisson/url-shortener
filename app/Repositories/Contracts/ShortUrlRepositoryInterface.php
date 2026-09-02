@@ -28,4 +28,9 @@ interface ShortUrlRepositoryInterface
      * Busca todas as URLs encurtadas de um usuário.
      */
     public function findByUserId(int $userId): Collection;
+
+    /**
+     * Busca uma URL encurtada pelo código pertencente a um usuário.
+     */
+    public function findByShortCodeAndUserId(string $shortCode, int $userId): ?ShortUrl;
 }

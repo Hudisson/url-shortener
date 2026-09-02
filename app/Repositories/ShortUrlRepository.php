@@ -51,4 +51,14 @@ final readonly class ShortUrlRepository implements ShortUrlRepositoryInterface
             ->latest()
             ->get();
     }
+
+    /**
+     * Busca uma URL encurtada pelo código pertencente a um usuário.
+     */
+    public function findByShortCodeAndUserId( string $shortCode, int $userId): ?ShortUrl {
+        return ShortUrl::query()
+            ->where('short_code', $shortCode)
+            ->where('user_id', $userId)
+            ->first();
+    }
 }
