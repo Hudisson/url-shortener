@@ -48,6 +48,32 @@
 
                         </div>
 
+                        <div class="short-url-actions">
+
+                            <a href="{{ route('dashboard.metrics', $shortUrl->short_code) }}"
+                                class="button short-url-action btn-view-metrics-url">
+                                Métricas <i class="fa-solid fa-square-poll-vertical"></i>
+                            </a>
+
+
+                            <button class="button short-url-action btn-copy-url">
+                                Copiar <i class="fa-solid fa-copy"></i>
+                            </button>
+
+                            <button class="button short-url-action btn-edit-url">
+                                Editar <i class="fa-solid fa-pen-to-square"></i>
+                            </button>
+
+                            <button class="button short-url-action btn-qr-url">
+                                QR code <i class="fa-solid fa-qrcode"></i>
+                            </button>
+
+                            <button class="button short-url-action btn-delete-url">
+                               Excluir <i class="fa-solid fa-trash"></i>
+                            </button>
+
+                        </div>
+
                     </div>
 
                 @empty

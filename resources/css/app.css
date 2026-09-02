@@ -349,6 +349,50 @@ Dropdown aberto
     font-size: 13px;
 }
 
+.short-url-actions {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.short-url-action {
+    width: auto;
+    font-size: 12px !important;
+}
+
+.btn-view-metrics-url{
+    background-color: #2563EB !important;
+}
+
+.btn-copy-url{
+    background-color: #475569 !important;
+}
+
+.btn-delete-url{
+    background-color: #DC2626 !important;
+}
+
+.btn-edit-url{
+    background-color: #7C3AED !important;
+}
+
+.btn-qr-url{
+    background-color: #16A34A !important;
+}
+
+.short-url-metrics{
+    display: inline-block;
+
+    color: #6b6bfa;
+
+    font-size: 15px;
+    font-weight: 400;
+
+    text-decoration: none;
+
+    word-break: break-all;
+}
+
 .short-url-empty {
     padding: 25px;
 
@@ -364,6 +408,128 @@ Dropdown aberto
 
 .short-url-empty p {
     margin: 0;
+}
+
+/* =========================
+   Página de Métricas
+   ========================= */
+
+.metrics-card {
+    max-width: 760px;
+}
+
+.metrics-url-info {
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+}
+
+.metrics-url-field {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.metrics-label {
+    color: #555;
+
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.metrics-url-info .short-url-original {
+    margin: 0;
+}
+
+.short-url-metrics {
+    display: inline-block;
+
+    color: #6b6bfa;
+
+    font-size: 15px;
+    font-weight: 400;
+
+    text-decoration: none;
+
+    word-break: break-all;
+}
+
+.short-url-metrics:hover {
+    text-decoration: underline;
+}
+
+.metrics-card hr {
+    width: 100%;
+
+    margin: 30px 0;
+
+    border: none;
+    border-top: 1px solid #e4e4e7;
+}
+
+.metrics-summary {
+    display: grid;
+
+    grid-template-columns: repeat(2, 1fr);
+
+    gap: 15px;
+}
+
+.metric-item {
+    padding: 20px;
+
+    background: #f8f8f8;
+
+    border: 1px solid #e4e4e7;
+    border-radius: 8px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    text-align: center;
+}
+
+.metric-item i {
+    margin-bottom: 10px;
+
+    color: #2563eb;
+
+    font-size: 22px;
+}
+
+.metric-label {
+    color: #666;
+
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.metric-value {
+    margin-top: 6px;
+
+    color: #18181b;
+
+    font-size: 22px;
+    font-weight: 700;
+}
+
+.metric-date {
+    font-size: 15px;
+}
+
+.metrics-actions {
+    margin-top: 25px;
+}
+
+.metrics-actions .secondary-button {
+    margin-top: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    gap: 8px;
 }
 
 
@@ -843,6 +1009,10 @@ button:hover {
     .header-nav a {
         font-size: 14px;
     }
+}
+
+.metrics-summary {
+    grid-template-columns: 1fr;
 }
 
 

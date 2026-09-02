@@ -49,6 +49,11 @@ Route::get('/dashboard', [DashboardController::class, 'index'])
     ->middleware('auth')
     ->name('dashboard');
 
+// Métricas da URL
+Route::get('/dashboard/{shortCode}/metrics', [DashboardController::class, 'metrics'])
+    ->middleware('auth')
+    ->name('dashboard.metrics');
+
 // Perfil
 Route::get('/profile', [ProfileController::class, 'show'])
     ->middleware('auth')
