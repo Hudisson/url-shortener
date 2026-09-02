@@ -55,10 +55,22 @@ final readonly class ShortUrlRepository implements ShortUrlRepositoryInterface
     /**
      * Busca uma URL encurtada pelo código pertencente a um usuário.
      */
-    public function findByShortCodeAndUserId( string $shortCode, int $userId): ?ShortUrl {
+    public function findByShortCodeAndUserId(string $shortCode, int $userId): ?ShortUrl
+    {
         return ShortUrl::query()
             ->where('short_code', $shortCode)
             ->where('user_id', $userId)
             ->first();
+    }
+
+    /**
+     * Exclui uma URL encurtada pertencente a um usuário.
+     */
+    public function deleteByShortCodeAndUserId(string $shortCode, int $userId): bool
+    {
+        return ShortUrl::query()
+            ->where('short_code', $shortCode)
+            ->where('user_id', $userId)
+            ->delete() > 0;
     }
 }

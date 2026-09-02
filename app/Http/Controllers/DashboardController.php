@@ -7,6 +7,7 @@ namespace App\Http\Controllers;
 use App\Services\DashboardService;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
+use Illuminate\Http\RedirectResponse;
 
 final class DashboardController extends Controller
 {
@@ -42,5 +43,24 @@ final class DashboardController extends Controller
         return view('metrics', [
             'shortUrl' => $shortUrl,
         ]);
+    }
+
+    /**
+     * Exclui uma URL encurtada pertencente ao usuário autenticado.
+     */
+    public function destroy(
+        Request $request,
+        string $shortCode
+    ): RedirectResponse {
+        $deleted = $this->service->deleteUserShortUrl(
+            $shortCode,
+            $request->user()->id,
+        );
+
+        if (!$deleted) {
+            abort(404);
+        }
+
+        return redirect()->route('dashboard');
     }
 }

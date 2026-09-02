@@ -25,8 +25,20 @@ final readonly class DashboardService
     /**
      * Retorna uma URL encurtada pertencente ao usuário.
      */
-    public function getUserShortUrl(string $shortCode, int $userId): ?ShortUrl {
+    public function getUserShortUrl(string $shortCode, int $userId): ?ShortUrl
+    {
         return $this->repository->findByShortCodeAndUserId(
+            $shortCode,
+            $userId
+        );
+    }
+
+    /**
+     * Exclui uma URL encurtada pertencente ao usuário.
+     */
+    public function deleteUserShortUrl(string $shortCode, int $userId): bool
+    {
+        return $this->repository->deleteByShortCodeAndUserId(
             $shortCode,
             $userId
         );

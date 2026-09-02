@@ -54,6 +54,11 @@ Route::get('/dashboard/{shortCode}/metrics', [DashboardController::class, 'metri
     ->middleware('auth')
     ->name('dashboard.metrics');
 
+// Excluir URL encurtada
+Route::delete('/dashboard/{shortCode}', [DashboardController::class, 'destroy'])
+    ->middleware('auth')
+    ->name('dashboard.destroy');
+
 // Perfil
 Route::get('/profile', [ProfileController::class, 'show'])
     ->middleware('auth')

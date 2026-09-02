@@ -68,9 +68,15 @@
                                 QR code <i class="fa-solid fa-qrcode"></i>
                             </button>
 
-                            <button class="button short-url-action btn-delete-url">
-                               Excluir <i class="fa-solid fa-trash"></i>
-                            </button>
+                            <form action="{{ route('dashboard.destroy', $shortUrl->short_code) }}" method="POST"
+                                class="delete-url-form">
+                                @csrf
+                                @method('DELETE')
+
+                                <button type="button" class="button short-url-action btn-delete-url">
+                                    Excluir <i class="fa-solid fa-trash"></i>
+                                </button>
+                            </form>
 
                         </div>
 
@@ -86,6 +92,31 @@
                 @endforelse
 
             </div>
+
+            {{-- Modal --}}
+            <div id="delete-modal" class="delete-modal" aria-hidden="true">
+                <div class="delete-modal-content" role="dialog" aria-modal="true" aria-labelledby="delete-modal-title">
+                    <h2 id="delete-modal-title">
+                        Excluir URL
+                    </h2>
+
+                    <p>
+                        Tem certeza de que deseja excluir esta URL?
+                        Essa ação não poderá ser desfeita.
+                    </p>
+
+                    <div class="delete-modal-actions">
+                        <button type="button" id="delete-modal-cancel" class="delete-modal-button delete-modal-cancel">
+                            Cancelar
+                        </button>
+
+                        <button type="button" id="delete-modal-confirm" class="delete-modal-button delete-modal-confirm">
+                            Excluir
+                        </button>
+                    </div>
+                </div>
+            </div>
+            {{-- Fim Modal --}}
 
         </section>
 

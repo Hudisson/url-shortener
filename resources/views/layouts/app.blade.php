@@ -8,7 +8,12 @@
 
     <title>{{ $title ?? 'URL Shortener' }}</title>
 
-    @vite(['resources/css/app.css', 'resources/js/app.js', 'resources/js/dropdown-header.js'])
+    @vite([
+        'resources/css/app.css',
+        'resources/js/app.js',
+        'resources/js/dropdown-header.js',
+        'resources/js/delete-modal.js'
+        ])
 
 </head>
 
