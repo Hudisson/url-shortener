@@ -33,4 +33,9 @@ interface ShortUrlRepositoryInterface
      * Busca uma URL encurtada pelo código pertencente a um usuário.
      */
     public function findByShortCodeAndUserId(string $shortCode, int $userId): ?ShortUrl;
+
+    /**
+     * Exclui uma URL encurtada pertencente a um usuário.
+     */
+    public function deleteByShortCodeAndUserId(string $shortCode, int $userId): bool;
 }

@@ -355,6 +355,14 @@ Dropdown aberto
     gap: 5px;
 }
 
+.short-url-actions form {
+    display: contents;
+}
+
+.short-url-actions form .btn-delete-url {
+    margin-top: 15px;
+}
+
 .short-url-action {
     width: auto;
     font-size: 12px !important;
@@ -408,6 +416,89 @@ Dropdown aberto
 
 .short-url-empty p {
     margin: 0;
+}
+
+.delete-modal {
+    position: fixed;
+    inset: 0;
+
+    display: none;
+    align-items: center;
+    justify-content: center;
+
+    padding: 20px;
+
+    background: rgba(0, 0, 0, 0.55);
+
+    z-index: 1000;
+}
+
+.delete-modal.is-open {
+    display: flex;
+}
+
+.delete-modal-content {
+    width: 100%;
+    max-width: 420px;
+
+    padding: 30px;
+
+    background: #fff;
+
+    border-radius: 10px;
+
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
+}
+
+.delete-modal-content h2 {
+    margin: 0 0 12px;
+
+    font-size: 20px;
+    color: #18181b;
+}
+
+.delete-modal-content p {
+    margin: 0;
+
+    color: #52525b;
+
+    line-height: 1.5;
+}
+
+.delete-modal-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+
+    margin-top: 25px;
+}
+
+.delete-modal-button {
+    width: auto;
+
+    padding: 10px 16px;
+
+    border: none;
+    border-radius: 7px;
+
+    font-size: 14px;
+    font-weight: 600;
+
+    cursor: pointer;
+}
+
+.delete-modal-cancel {
+    background: #e4e4e7;
+    color: #18181b;
+}
+
+.delete-modal-cancel:hover{
+    color: #fff;
+}
+
+.delete-modal-confirm {
+    background: #dc2626;
+    color: #fff;
 }
 
 /* =========================
