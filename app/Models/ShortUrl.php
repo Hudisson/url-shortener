@@ -19,6 +19,7 @@ class ShortUrl extends Model
      */
     protected $fillable = [
         'user_id',       // Id do usuário que encurtou (null se fou um visitante)
+        'label',        // Etiqueta de identificação da URL (opcional)
         'original_url', // A URL de destino original
         'short_code',   // O código único gerado para o encurtador (ex: 'aB3X9')
         'clicks',       // Contador de acessos ao link

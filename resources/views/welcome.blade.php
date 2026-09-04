@@ -39,6 +39,20 @@
 
                 </div>
 
+                {{-- Campo de Etiqueta - apenas usuário auteticado --}}
+                @auth
+                    <div class="form-group">
+
+                        <label for="label">
+                            Etiqueta (opcional)
+                        </label>
+
+                        <input type="text" id="label" name="label" placeholder="Ex: Projeto Laravel"
+                            value="{{ old('label') }}" maxlength="255">
+
+                    </div>
+                @endauth
+
                 <button type="submit">
                     Encurtar URL
                 </button>
