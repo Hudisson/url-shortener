@@ -73,4 +73,48 @@ final readonly class ShortUrlRepository implements ShortUrlRepositoryInterface
             ->where('user_id', $userId)
             ->delete() > 0;
     }
+
+    /**
+     * Retorna a quantidade de URLs encurtadas pertencentes a um usuário.
+     */
+    public function countByUserId(int $userId): int
+    {
+        return ShortUrl::query()
+            ->where('user_id', $userId)
+            ->count();
+    }
+
+    /**
+     * Retorna a quantidade de URLs ativas pertencentes a um usuário.
+     */
+    public function countActiveByUserId(int $userId): int
+    {
+        return ShortUrl::query()
+            ->where('user_id', $userId)
+            ->where('is_active', true)
+            ->count();
+    }
+
+    /**
+     * Retorna a quantidade de URLs inativas pertencentes a um usuário.
+     */
+    public function countInactiveByUserId(int $userId): int
+    {
+        return ShortUrl::query()
+            ->where('user_id', $userId)
+            ->where('is_active', false)
+            ->count();
+    }
+
+    /**
+     * Retorna as URLs mais acessadas pertencentes a um usuário.
+     */
+    public function findMostAccessedByUserId(int $userId, int $limit = 3): Collection
+    {
+        return ShortUrl::query()
+            ->where('user_id', $userId)
+            ->orderByDesc('clicks')
+            ->limit($limit)
+            ->get();
+    }
 }

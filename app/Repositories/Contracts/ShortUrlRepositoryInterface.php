@@ -38,4 +38,25 @@ interface ShortUrlRepositoryInterface
      * Exclui uma URL encurtada pertencente a um usuário.
      */
     public function deleteByShortCodeAndUserId(string $shortCode, int $userId): bool;
+
+
+    /**
+     * Retorna a quantidade de URLs encurtadas pertencentes a um usuário.
+     */
+    public function countByUserId(int $userId): int;
+
+    /**
+     * Retorna a quantidade de URLs ativas pertencentes a um usuário.
+     */
+    public function countActiveByUserId(int $userId): int;
+
+    /**
+     * Retorna a quantidade de URLs inativas pertencentes a um usuário.
+     */
+    public function countInactiveByUserId(int $userId): int;
+
+    /**
+     * Retorna as URLs mais acessadas pertencentes a um usuário.
+     */
+    public function findMostAccessedByUserId( int $userId, int $limit = 3): Collection;
 }

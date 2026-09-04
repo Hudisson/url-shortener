@@ -1,124 +1,108 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="public-page">
 
-        <section class="shortener-card">
+    <div class="dashboard">
 
-            <div class="shortener-header">
+        <div class="dashboard-header">
+            <h1>Dashboard</h1>
 
-                <h1>Dashboard</h1>
+            <p>
+                Resumo das suas URLs encurtadas.
+            </p>
+        </div>
 
-                <p>
-                    Olá, {{ auth()->user()->name }}!
-                </p>
+        <div class="dashboard-stats">
 
-                <p>
-                    Você está autenticado.
-                </p>
+            <div class="dashboard-stat-card">
+                <span class="dashboard-stat-label">
+                    Total de URLs
+                </span>
 
+                <strong class="dashboard-stat-value">
+                    {{ $totalUrls }}
+                </strong>
             </div>
 
-            <div class="short-url-list">
+            <div class="dashboard-stat-card">
+                <span class="dashboard-stat-label">
+                    URLs ativas
+                </span>
 
-                @forelse ($shortUrls as $shortUrl)
-                    <div class="short-url-item">
+                <strong class="dashboard-stat-value">
+                    {{ $activeUrls }}
+                </strong>
+            </div>
 
-                        <div class="short-url-info">
+            <div class="dashboard-stat-card">
+                <span class="dashboard-stat-label">
+                    URLs inativas
+                </span>
 
-                            <a href="{{ url($shortUrl->short_code) }}" class="short-url-code" target="_blank">
-                                {{ url($shortUrl->short_code) }}
-                            </a>
+                <strong class="dashboard-stat-value">
+                    {{ $inactiveUrls }}
+                </strong>
+            </div>
 
-                            <p class="short-url-original">
-                                {{ $shortUrl->original_url }}
-                            </p>
+        </div>
 
-                        </div>
+        <div class="dashboard-section">
 
-                        <div class="short-url-meta">
+            <div class="dashboard-section-header">
+                <h2>URLs mais acessadas</h2>
 
-                            <span>
-                                {{ $shortUrl->clicks }} cliques
-                            </span>
+                <p>
+                    Suas três URLs com maior número de acessos.
+                </p>
+            </div>
 
-                            <span>
-                                {{ $shortUrl->created_at->format('d/m/Y') }} às {{ $shortUrl->created_at->format('H:i') }}
-                            </span>
+            @if ($mostAccessedUrls->isEmpty())
+                <div class="dashboard-empty">
+                    <p>
+                        Você ainda não possui URLs encurtadas.
+                    </p>
+                </div>
+            @else
+                <div class="most-accessed-list">
 
-                        </div>
+                    @foreach ($mostAccessedUrls as $shortUrl)
+                        <div class="most-accessed-item">
 
-                        <div class="short-url-actions">
+                            <div class="most-accessed-info">
+
+                                <a href="{{ url($shortUrl->short_code) }}" target="_blank" rel="noopener noreferrer">
+                                    {{ url($shortUrl->short_code) }}
+                                </a>
+
+                                <span>
+                                    {{ $shortUrl->clicks }}
+                                    {{ $shortUrl->clicks === 1 ? 'acesso' : 'acessos' }}
+                                </span>
+
+                            </div>
 
                             <a href="{{ route('dashboard.metrics', $shortUrl->short_code) }}"
                                 class="button short-url-action btn-view-metrics-url">
-                                Métricas <i class="fa-solid fa-square-poll-vertical"></i>
+                                Métricas
+                                <i class="fa-solid fa-chart-simple"></i>
                             </a>
 
-
-                            <button class="button short-url-action btn-copy-url">
-                                Copiar <i class="fa-solid fa-copy"></i>
-                            </button>
-
-                            <button class="button short-url-action btn-edit-url">
-                                Editar <i class="fa-solid fa-pen-to-square"></i>
-                            </button>
-
-                            <button class="button short-url-action btn-qr-url">
-                                QR code <i class="fa-solid fa-qrcode"></i>
-                            </button>
-
-                            <form action="{{ route('dashboard.destroy', $shortUrl->short_code) }}" method="POST"
-                                class="delete-url-form">
-                                @csrf
-                                @method('DELETE')
-
-                                <button type="button" class="button short-url-action btn-delete-url">
-                                    Excluir <i class="fa-solid fa-trash"></i>
-                                </button>
-                            </form>
-
                         </div>
+                    @endforeach
 
-                    </div>
-
-                @empty
-
-                    <div class="short-url-empty">
-                        <p>
-                            Você ainda não possui nenhuma URL encurtada.
-                        </p>
-                    </div>
-                @endforelse
-
-            </div>
-
-            {{-- Modal --}}
-            <div id="delete-modal" class="delete-modal" aria-hidden="true">
-                <div class="delete-modal-content" role="dialog" aria-modal="true" aria-labelledby="delete-modal-title">
-                    <h2 id="delete-modal-title">
-                        Excluir URL
-                    </h2>
-
-                    <p>
-                        Tem certeza de que deseja excluir esta URL?
-                        Essa ação não poderá ser desfeita.
-                    </p>
-
-                    <div class="delete-modal-actions">
-                        <button type="button" id="delete-modal-cancel" class="delete-modal-button delete-modal-cancel">
-                            Cancelar
-                        </button>
-
-                        <button type="button" id="delete-modal-confirm" class="delete-modal-button delete-modal-confirm">
-                            Excluir
-                        </button>
-                    </div>
                 </div>
-            </div>
-            {{-- Fim Modal --}}
+            @endif
 
-        </section>
+        </div>
+
+        <div class="dashboard-section dashboard-all-urls">
+
+            <a href="{{ route('dashboard.urls') }}" class="button">
+                Visualizar todas as URLs
+            </a>
+
+        </div>
 
     </div>
+
 @endsection

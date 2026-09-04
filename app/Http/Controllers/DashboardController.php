@@ -16,17 +16,41 @@ final class DashboardController extends Controller
         private readonly DashboardService $service,
     ) {}
 
+    /**
+     * Exibe a página de Dashboard.
+     */
     public function index(Request $request): View
     {
+        $userId = $request->user()->id;
 
+        $totalUrls = $this->service->countUserShortUrls($userId);
+        $activeUrls = $this->service->countUserActiveShortUrls($userId);
+        $inactiveUrls = $this->service->countUserInactiveShortUrls($userId);
+        $mostAccessedUrls = $this->service->getMostAccessedUserShortUrls($userId);
+
+        return view('dashboard', [
+            'totalUrls' => $totalUrls,                  // Qunatidade total de URLs
+            'activeUrls' => $activeUrls,                // URLs ativas
+            'inactiveUrls' => $inactiveUrls,            // URLs inativas
+            'mostAccessedUrls' => $mostAccessedUrls,    // URLs mais acessadas
+        ]);
+    }
+
+    /**
+     * Exibe todas as URLs encurtadas pertencentes ao usuário autenticado.
+     */
+    public function urls(Request $request): View
+    {
         $shortUrls = $this->service->getUserShortUrls(
             $request->user()->id,
         );
 
-        return view('dashboard', [
+        return view('urls', [
             'shortUrls' => $shortUrls,
         ]);
     }
+
+
 
     public function metrics(Request $request, string $shortCode): View
     {

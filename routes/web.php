@@ -44,10 +44,19 @@ Route::post('/login', [LoginController::class, 'store'])
 Route::post('/logout', [LoginController::class, 'destroy'])
     ->name('logout');
 
+
+// =========================
 // Dashboard
+// =========================
+
 Route::get('/dashboard', [DashboardController::class, 'index'])
     ->middleware('auth')
     ->name('dashboard');
+
+// Todas as URLs do usuário
+Route::get('/dashboard/urls', [DashboardController::class, 'urls'])
+    ->middleware('auth')
+    ->name('dashboard.urls');
 
 // Métricas da URL
 Route::get('/dashboard/{shortCode}/metrics', [DashboardController::class, 'metrics'])
@@ -59,14 +68,26 @@ Route::delete('/dashboard/{shortCode}', [DashboardController::class, 'destroy'])
     ->middleware('auth')
     ->name('dashboard.destroy');
 
+
+// =========================
 // Perfil
+// =========================
+
 Route::get('/profile', [ProfileController::class, 'show'])
     ->middleware('auth')
     ->name('profile');
 
+
+// =========================
 // Encurtar URL
+// =========================
+
 Route::post('/shorten', [ShortUrlController::class, 'store']);
 
+
+// =========================
 // Redirecionamento de URL curta
+// =========================
+
 Route::get('/{shortCode}', RedirectController::class)
     ->where('shortCode', '[A-Za-z0-9]+');
