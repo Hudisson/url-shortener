@@ -28,7 +28,7 @@ final class DashboardController extends Controller
         $inactiveUrls = $this->service->countUserInactiveShortUrls($userId);
         $mostAccessedUrls = $this->service->getMostAccessedUserShortUrls($userId);
 
-        return view('dashboard', [
+        return view('dashboard.dashboard', [
             'totalUrls' => $totalUrls,                  // Qunatidade total de URLs
             'activeUrls' => $activeUrls,                // URLs ativas
             'inactiveUrls' => $inactiveUrls,            // URLs inativas
@@ -45,7 +45,7 @@ final class DashboardController extends Controller
             $request->user()->id,
         );
 
-        return view('urls', [
+        return view('dashboard.urls', [
             'shortUrls' => $shortUrls,
         ]);
     }
@@ -64,7 +64,7 @@ final class DashboardController extends Controller
             abort(404);
         }
 
-        return view('metrics', [
+        return view('dashboard.metrics', [
             'shortUrl' => $shortUrl,
         ]);
     }
