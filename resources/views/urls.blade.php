@@ -21,15 +21,16 @@
                 <div class="short-url-item">
 
                     <div class="short-url-info">
-
+                        <label>Short Code</label>
                         <a href="{{ url($shortUrl->short_code) }}" class="short-url-code" target="_blank"
                             rel="noopener noreferrer">
                             {{ url($shortUrl->short_code) }}
                         </a>
 
-                        <p class="short-url-original">
+                        <label>Original</label>
+                        <a href="{{ url($shortUrl->original_url) }}" class="short-url-original" target="_blank">
                             {{ $shortUrl->original_url }}
-                        </p>
+                        </a>
 
                     </div>
 
@@ -56,10 +57,12 @@
                             <i class="fa-solid fa-square-poll-vertical"></i>
                         </a>
 
-                        <button type="button" class="button short-url-action btn-copy-url">
+
+                        <button type="button" class="button short-url-action copy-url-button">
                             Copiar
                             <i class="fa-solid fa-copy"></i>
                         </button>
+
 
                         <button type="button" class="button short-url-action btn-edit-url">
                             Editar

@@ -85,6 +85,6 @@ final class DashboardController extends Controller
             abort(404);
         }
 
-        return redirect()->route('dashboard');
+        return redirect()->route('dashboard.urls');
     }
 }

@@ -25,9 +25,12 @@
 
                     <input type="text" id="short-url" value="{{ url($shortUrl->short_code) }}" readonly>
 
-                    <button type="button" id="copy-button" class="copy-button">
-                        Copiar URL
+
+                    <button type="button" id="copy-button" class="button copy-url-button copy-button">
+                        Copiar URL <i class="fa-solid fa-copy"></i>
                     </button>
+
+
 
                 </div>
 

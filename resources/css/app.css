@@ -305,6 +305,27 @@ Dropdown aberto
     min-width: 0;
 }
 
+.short-url-info label {
+    display: block;
+
+    margin-top: 12px;
+    margin-bottom: 5px;
+
+    color: #71717a;
+
+    font-size: 12px;
+    font-weight: 700;
+
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+
+.short-url-info label:first-child {
+    margin-top: 0;
+}
+
+
+
 .short-url-code {
     display: inline-block;
 
@@ -312,6 +333,7 @@ Dropdown aberto
 
     font-size: 16px;
     font-weight: 700;
+    line-height: 1;
 
     text-decoration: none;
 
@@ -325,10 +347,10 @@ Dropdown aberto
 .short-url-original {
     margin: 8px 0 0;
 
-    color: #666;
+    color: #0a72af;
 
     font-size: 14px;
-    line-height: 1.5;
+    line-height: 1;
 
     word-break: break-all;
 }
@@ -369,7 +391,7 @@ Dropdown aberto
 }
 
 .btn-view-metrics-url{
-    background-color: #2563EB !important;
+    background-color: #1142aacb !important;
 }
 
 .btn-copy-url{
@@ -381,7 +403,7 @@ Dropdown aberto
 }
 
 .btn-edit-url{
-    background-color: #7C3AED !important;
+    background-color: #ca7c05 !important;
 }
 
 .btn-qr-url{
@@ -1147,12 +1169,12 @@ button:hover {
 }
 
 .button {
-    background: #18181b;
+    background-color: #18181b;
     color: #fff;
 }
 
 .button:hover {
-    background: #27272a;
+    background-color: #27272a;
 }
 
 .secondary-button {
@@ -1164,7 +1186,7 @@ button:hover {
 }
 
 .secondary-button:hover {
-    background: #f4f4f5;
+    background-color: #d6eaf0;
 }
 
 /* =========================
@@ -1189,6 +1211,8 @@ button:hover {
     width: auto;
     flex: 0 0 auto;
 
+    background-color: #18181b;
+
     margin-top: 0;
     padding: 12px 18px;
 
@@ -1196,7 +1220,7 @@ button:hover {
 }
 
 .copy-container .copy-button.copied {
-    background: #166534;
+    /* background: #166534; */
 }
 
 /* =========================
