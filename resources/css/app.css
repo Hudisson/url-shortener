@@ -305,7 +305,8 @@ Dropdown aberto
     min-width: 0;
 }
 
-.short-url-info label {
+.short-url-info label, .short-url-info span,
+.most-accessed-info span {
     display: block;
 
     margin-top: 12px;
@@ -324,6 +325,31 @@ Dropdown aberto
     margin-top: 0;
 }
 
+.short-url-info .etiqueta,
+.short-url-info .etiqueta-sem-titulo{
+    text-align: center;
+    font-size: 14px;
+}
+
+.most-accessed-info .etiqueta,
+.most-accessed-info .etiqueta-sem-titulo{
+    text-align:justify;
+    font-size: 14px;
+}
+
+.short-url-info .etiqueta,
+.most-accessed-info .etiqueta{
+    color: #3d3021; /*554d44*/
+}
+
+.short-url-info .etiqueta-sem-titulo,
+.most-accessed-info .etiqueta-sem-titulo{
+    color: #bdbdcf;
+}
+
+.short-url-info hr{
+    width: 60%;
+}
 
 
 .short-url-code {

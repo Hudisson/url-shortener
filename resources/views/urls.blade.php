@@ -21,6 +21,17 @@
                 <div class="short-url-item">
 
                     <div class="short-url-info">
+
+                        @if (!$shortUrl->label)
+                            <span class="etiqueta-sem-titulo">
+                                Sem título
+                            </span>
+                        @else
+                            <span class="etiqueta">
+                                {{ $shortUrl->label }}
+                            </span>
+                        @endif
+
                         <label>Short Code</label>
                         <a href="{{ url($shortUrl->short_code) }}" class="short-url-code" target="_blank"
                             rel="noopener noreferrer">

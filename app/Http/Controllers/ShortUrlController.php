@@ -17,10 +17,18 @@ final class ShortUrlController extends Controller
 
     public function store(Request $request): JsonResponse|View
     {
+        $label = $request->user()
+            ? $request->input('label')
+            : null;
+
+        
         $shortUrl = $this->service->create(
             $request->input('url'),
             $request->user()?->id, // Passa o ID do usuário logado, se for um visitante passa (null)
+            $label,
         );
+
+
 
         // Retorna a resposta em JSON se a requisição for feita por um cliente de API (Insomnia, Thunder Client e etc)
         if ($request->expectsJson()) {

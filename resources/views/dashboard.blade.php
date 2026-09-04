@@ -70,6 +70,19 @@
 
                             <div class="most-accessed-info">
 
+
+                                @if (!$shortUrl->label)
+                                    <span class="etiqueta-sem-titulo">
+                                        Sem título
+                                    </span>
+                                @else
+                                    <span class="etiqueta">
+                                        {{ $shortUrl->label }}
+                                    </span>
+                                @endif
+
+                                <hr>
+
                                 <a href="{{ url($shortUrl->short_code) }}" target="_blank" rel="noopener noreferrer">
                                     {{ url($shortUrl->short_code) }}
                                 </a>
