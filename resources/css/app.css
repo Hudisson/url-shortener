@@ -502,6 +502,254 @@ Dropdown aberto
 }
 
 /* =========================
+   Dashboard - Resumo
+   ========================= */
+
+.dashboard {
+    width: 100%;
+    max-width: 1100px;
+
+    margin: 0 auto;
+    padding: 40px 30px;
+}
+
+.dashboard-header {
+    margin-bottom: 30px;
+}
+
+.dashboard-header h1 {
+    margin: 0;
+
+    font-size: 28px;
+    color: #18181b;
+}
+
+.dashboard-header p {
+    margin: 8px 0 0;
+
+    color: #71717a;
+    font-size: 14px;
+}
+
+
+/* =========================
+   Cards de estatísticas
+   ========================= */
+
+.dashboard-stats {
+    display: grid;
+
+    grid-template-columns: repeat(3, 1fr);
+
+    gap: 18px;
+
+    margin-bottom: 30px;
+}
+
+.dashboard-stat-card {
+    padding: 24px;
+
+    background: #fff;
+
+    border: 1px solid #e4e4e7;
+    border-radius: 10px;
+
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+.dashboard-stat-label {
+    display: block;
+
+    margin-bottom: 10px;
+
+    color: #71717a;
+
+    font-size: 14px;
+}
+
+.dashboard-stat-value {
+    display: block;
+
+    color: #18181b;
+
+    font-size: 30px;
+    font-weight: 700;
+}
+
+
+/* =========================
+   Seções do Dashboard
+   ========================= */
+
+.dashboard-section {
+    margin-bottom: 25px;
+    padding: 25px;
+
+    background: #fff;
+
+    border: 1px solid #e4e4e7;
+    border-radius: 10px;
+
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+.dashboard-section-header {
+    margin-bottom: 20px;
+}
+
+.dashboard-section-header h2 {
+    margin: 0;
+
+    color: #18181b;
+
+    font-size: 20px;
+}
+
+.dashboard-section-header p {
+    margin: 6px 0 0;
+
+    color: #71717a;
+
+    font-size: 13px;
+}
+
+
+/* =========================
+   URLs mais acessadas
+   ========================= */
+
+.most-accessed-list {
+    display: flex;
+    flex-direction: column;
+
+    gap: 10px;
+}
+
+.most-accessed-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 20px;
+
+    padding: 15px;
+
+    background: #f8f8f8;
+
+    border: 1px solid #e4e4e7;
+    border-radius: 8px;
+}
+
+.most-accessed-info {
+    display: flex;
+    flex-direction: column;
+
+    gap: 5px;
+
+    min-width: 0;
+}
+
+.most-accessed-info a {
+    overflow: hidden;
+
+    color: #18181b;
+
+    font-size: 14px;
+    font-weight: 600;
+
+    text-decoration: none;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.most-accessed-info a:hover {
+    text-decoration: underline;
+}
+
+.most-accessed-info span {
+    color: #71717a;
+
+    font-size: 13px;
+}
+
+.most-accessed-item .button {
+    flex-shrink: 0;
+
+    width: auto;
+
+    margin-top: 0;
+}
+
+
+/* =========================
+   Dashboard vazio
+   ========================= */
+
+.dashboard-empty {
+    padding: 25px;
+
+    text-align: center;
+
+    background: #fafafa;
+
+    border: 1px dashed #c7c7c7;
+    border-radius: 8px;
+}
+
+.dashboard-empty p {
+    margin: 0;
+
+    color: #777;
+
+    font-size: 14px;
+}
+
+
+/* =========================
+   Botão - Todas as URLs
+   ========================= */
+
+.dashboard-all-urls {
+    padding: 0;
+
+    background: transparent;
+
+    border: none;
+
+    box-shadow: none;
+}
+
+.dashboard-all-urls .button {
+    margin-top: 0;
+}
+
+
+/* =========================
+   Responsividade - Dashboard
+   ========================= */
+
+@media (max-width: 768px) {
+
+    .dashboard {
+        padding: 30px 20px;
+    }
+
+    .dashboard-stats {
+        grid-template-columns: 1fr;
+    }
+
+    .most-accessed-item {
+        align-items: flex-start;
+
+        flex-direction: column;
+    }
+
+    .most-accessed-item .button {
+        width: 100%;
+    }
+}
+
+/* =========================
    Página de Métricas
    ========================= */
 

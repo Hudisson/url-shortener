@@ -43,4 +43,40 @@ final readonly class DashboardService
             $userId
         );
     }
+
+
+    /**
+     * Retorna a quantidade total de URLs encurtadas do usuário.
+     */
+    public function countUserShortUrls(int $userId): int
+    {
+        return $this->repository->countByUserId($userId);
+    }
+
+    /**
+     * Retorna a quantidade de URLs ativas do usuário.
+     */
+    public function countUserActiveShortUrls(int $userId): int
+    {
+        return $this->repository->countActiveByUserId($userId);
+    }
+
+    /**
+     * Retorna a quantidade de URLs inativas do usuário.
+     */
+    public function countUserInactiveShortUrls(int $userId): int
+    {
+        return $this->repository->countInactiveByUserId($userId);
+    }
+
+    /**
+     * Retorna as URLs mais acessadas do usuário.
+     */
+    public function getMostAccessedUserShortUrls(int $userId, int $limit = 3): Collection
+    {
+        return $this->repository->findMostAccessedByUserId(
+            $userId,
+            $limit
+        );
+    }
 }
