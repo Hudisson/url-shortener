@@ -1,0 +1,74 @@
+/* =========================
+   CSS específico de short_url/result.blade.php (URL criada com sucesso)
+   ========================= */
+
+.result {
+    margin-top: 25px;
+}
+
+.result label {
+    display: block;
+
+    margin-bottom: 8px;
+
+    font-weight: bold;
+}
+
+.result input {
+    width: 100%;
+
+    padding: 12px;
+
+    border: 1px solid #ccc;
+    border-radius: 7px;
+
+    background: #f4f4f5;
+
+    font-size: 16px;
+}
+
+
+/* =========================
+   Copy URL
+   ========================= */
+
+.copy-container {
+    width: 100%;
+
+    display: flex;
+    align-items: stretch;
+
+    gap: 10px;
+}
+
+.copy-container input {
+    flex: 1;
+    min-width: 0;
+}
+
+.copy-container .copy-button {
+    width: auto;
+    flex: 0 0 auto;
+
+    background-color: #18181b;
+
+    margin-top: 0;
+    padding: 12px 18px;
+
+    white-space: nowrap;
+}
+
+.copy-container .copy-button.copied {
+    /* background: #166534; */
+}
+
+@media (max-width: 480px) {
+    .copy-container {
+        flex-direction: column;
+    }
+
+    .copy-container .copy-button {
+        width: 100%;
+        flex: none;
+    }
+}
