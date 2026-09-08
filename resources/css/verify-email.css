@@ -1,0 +1,11 @@
+/* =========================
+   CSS específico de auth/verify-email.blade.php (Verificação de conta)
+   ========================= */
+
+.btn_resend-code {
+
+    margin-top: 10px;
+    background-color: #1e5b74;
+
+
+}

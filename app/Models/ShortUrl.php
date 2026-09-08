@@ -22,6 +22,7 @@ class ShortUrl extends Model
         'label',        // Etiqueta de identificação da URL (opcional)
         'original_url', // A URL de destino original
         'short_code',   // O código único gerado para o encurtador (ex: 'aB3X9')
+        'type',         // Tipo de código da URL - base62(default) ou custom
         'clicks',       // Contador de acessos ao link
         'is_active',    // Status de ativação do link (ativo/inativo)
     ];
