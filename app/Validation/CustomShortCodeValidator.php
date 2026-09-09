@@ -15,14 +15,31 @@ final readonly class CustomShortCodeValidator implements CustomShortCodeValidato
     private const ERROR_INVALID_SHORT_CODE =
         'The custom short code provided is invalid.';
 
+    private const RESERVED_CODES = [
+        'login',
+        'register',
+        'logout',
+        'dashboard',
+        'urls',
+        'metrics',
+        'about',
+        'api',
+    ];
+
     public function validate(string $shortCode): void
     {
+
+        $shortCode = trim($shortCode);
+
+        $shortCode = strtolower($shortCode);
+
         $length = strlen($shortCode);
 
         if (
             $length < self::MIN_LENGTH ||
             $length > self::MAX_LENGTH ||
-            ! preg_match('/^[a-zA-Z0-9_-]+$/', $shortCode)
+            ! preg_match('/^[a-zA-Z0-9_-]+$/', $shortCode) ||
+            in_array(strtolower($shortCode), self::RESERVED_CODES, true)
         ) {
             throw new InvalidArgumentException(
                 self::ERROR_INVALID_SHORT_CODE
