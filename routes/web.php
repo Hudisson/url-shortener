@@ -90,4 +90,4 @@ Route::post('/shorten', [ShortUrlController::class, 'store']);
 // =========================
 
 Route::get('/{shortCode}', RedirectController::class)
-    ->where('shortCode', '[A-Za-z0-9]+');
+    ->where('shortCode', '[A-Za-z0-9_-]+');
