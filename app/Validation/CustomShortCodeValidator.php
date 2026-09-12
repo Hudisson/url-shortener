@@ -10,10 +10,10 @@ use InvalidArgumentException;
 final readonly class CustomShortCodeValidator implements CustomShortCodeValidatorInterface
 {
     private const MIN_LENGTH = 3;
-    private const MAX_LENGTH = 20;
+    private const MAX_LENGTH = 50;
 
     private const ERROR_INVALID_SHORT_CODE =
-        'The custom short code provided is invalid.';
+        'O código personalizado fornecido é inválido.';
 
     private const RESERVED_CODES = [
         'login',

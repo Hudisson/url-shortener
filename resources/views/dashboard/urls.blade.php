@@ -75,10 +75,10 @@
                         </button>
 
 
-                        <button type="button" class="button short-url-action btn-edit-url">
+                        <a href="{{ route('dashboard.edit', $shortUrl->short_code) }}" class="button short-url-action btn-edit-url">
                             Editar
                             <i class="fa-solid fa-pen-to-square"></i>
-                        </button>
+                        </a>
 
                         <button type="button" class="button short-url-action btn-qr-url">
                             QR code

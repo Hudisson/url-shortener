@@ -63,6 +63,11 @@ Route::get('/dashboard/{shortCode}/metrics', [DashboardController::class, 'metri
     ->middleware('auth')
     ->name('dashboard.metrics');
 
+// Editar uma URL
+Route::get('/urls/{shortCode}/edit', [ShortUrlController::class, 'edit'])
+    ->middleware('auth')
+    ->name('dashboard.edit');
+
 // Excluir URL encurtada
 Route::delete('/dashboard/{shortCode}', [DashboardController::class, 'destroy'])
     ->middleware('auth')
