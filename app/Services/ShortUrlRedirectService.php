@@ -17,11 +17,11 @@ final readonly class ShortUrlRedirectService
         $shortUrl = $this->repository->findByShortCode($shortCode);
 
         if($shortUrl === null){
-            throw new \RuntimeException('Short URL not found.');
+            throw new \RuntimeException('URL curta não encontrada.');
         }
 
         if(! $shortUrl->is_active){
-            throw new \RuntimeException('Short URL is inactive.');
+            throw new \RuntimeException('A URL curta está inativa.');
         }
 
         $shortUrl->clicks++;

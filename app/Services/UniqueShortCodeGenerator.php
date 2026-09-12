@@ -30,7 +30,7 @@ final readonly class UniqueShortCodeGenerator implements UniqueShortCodeGenerato
         }
 
         throw new RuntimeException(
-            'Unable to generate a unique short code.'
+            'Não foi possível gerar um código curto exclusivo.'
         );
     }
 }

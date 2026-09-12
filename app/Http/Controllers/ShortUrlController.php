@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Http\Controllers;
 
 use App\Services\ShortUrlService;
+use App\Services\DashboardService;
 use App\Services\ShortCustomUrlService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -15,6 +16,7 @@ final class ShortUrlController extends Controller
     public function __construct(
         private readonly ShortUrlService $service,
         private readonly ShortCustomUrlService $customService,
+        private readonly DashboardService $dashboardService,
     ) {}
 
     public function store(Request $request): JsonResponse|View
@@ -65,6 +67,19 @@ final class ShortUrlController extends Controller
 
         // Retorna a resposta em HTML se a requisição for feita por um Browser (Navegador de internet)
         return view('short-url.result', [
+            'shortUrl' => $shortUrl,
+        ]);
+    }
+
+    // Método que retorna a página de edição de URLs
+    public function edit(Request $request, string $shortCode): View
+    {
+        $shortUrl = $this->dashboardService->getUserShortUrl(
+            $shortCode,
+            $request->user()->id,
+        );
+
+        return view('dashboard.edit', [
             'shortUrl' => $shortUrl,
         ]);
     }
