@@ -80,7 +80,8 @@
                             <i class="fa-solid fa-pen-to-square"></i>
                         </a>
 
-                        <button type="button" class="button short-url-action btn-qr-url">
+                        <button type="button" class="button short-url-action btn-qr-url"
+                            data-short-url="{{ url($shortUrl->short_code) }}">
                             QR code
                             <i class="fa-solid fa-qrcode"></i>
                         </button>
@@ -115,7 +116,6 @@
         </div>
 
         {{-- Modal de confirmação de exclusão --}}
-
         <div id="delete-modal" class="delete-modal" aria-hidden="true">
 
             <div class="delete-modal-content" role="dialog" aria-modal="true" aria-labelledby="delete-modal-title">
@@ -144,8 +144,34 @@
             </div>
 
         </div>
+        {{-- Fim do modal confirmação de exclusão--}}
 
-        {{-- Fim do modal --}}
+
+        {{-- Modal do QR Code --}}
+        <div id="qr-modal" class="qr-modal" aria-hidden="true">
+            <div class="qr-modal-content" role="dialog" aria-modal="true" aria-labelledby="qr-modal-title">
+                <button type="button" id="qr-modal-close" class="qr-modal-close" aria-label="Fechar">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+
+                <h2 id="qr-modal-title">QR Code da URL</h2>
+                <p id="qr-modal-url" class="qr-modal-url"></p>
+
+                <div class="qr-code-container">
+                    <canvas id="qr-code-canvas" width="280" height="365"></canvas>
+                </div>
+
+                <div class="qr-modal-actions">
+                    <button type="button" id="qr-download-png" class="button">
+                        Baixar PNG
+                    </button>
+                    <button type="button" id="qr-download-jpeg" class="button">
+                        Baixar JPEG
+                    </button>
+                </div>
+            </div>
+        </div>
+        {{-- Fim do modal  Modal do QR Code --}}
 
     </div>
 @endsection

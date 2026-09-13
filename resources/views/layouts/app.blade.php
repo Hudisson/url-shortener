@@ -21,6 +21,7 @@
         'resources/js/app.js',
         'resources/js/dropdown-header.js',
         'resources/js/delete-modal.js',
+        'resources/js/qr-code-generator.js',
         ])
 
 </head>
