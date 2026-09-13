@@ -17,7 +17,7 @@
 
         <section class="shortener-card">
 
-            <form method="POST">
+            <form method="POST" action="{{ route('dashboard.update', $shortUrl->short_code) }}">
 
                 @csrf
                 @method('PUT')

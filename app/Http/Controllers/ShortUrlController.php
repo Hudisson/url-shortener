@@ -8,6 +8,7 @@ use App\Services\ShortUrlService;
 use App\Services\DashboardService;
 use App\Services\ShortCustomUrlService;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
@@ -82,5 +83,35 @@ final class ShortUrlController extends Controller
         return view('dashboard.edit', [
             'shortUrl' => $shortUrl,
         ]);
+    }
+
+    // Método para atualizar uma URL
+    public function update( Request $request, string $shortCode): RedirectResponse {
+
+        $shortUrl = $this->dashboardService->getUserShortUrl(
+            $shortCode,
+            $request->user()->id,
+        );
+
+        if ($shortUrl === null) {
+            abort(404);
+        }
+
+        if ($shortUrl->type === 'custom') {
+            $this->customService->update(
+                $shortUrl,
+                $request->input('url'),
+                $request->input('short_code'),
+                $request->input('label'),
+            );
+        } else {
+            $this->service->update(
+                $shortUrl,
+                $request->input('url'),
+                $request->input('label'),
+            );
+        }
+
+        return redirect()->route('dashboard.urls');
     }
 }

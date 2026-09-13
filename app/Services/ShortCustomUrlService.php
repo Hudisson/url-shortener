@@ -15,7 +15,7 @@ final readonly class ShortCustomUrlService
     public function __construct(
         private LoggerInterface $logger,
         private UrlValidatorInterface $urlValidator,
-        private CustomShortCodeValidator $validator,
+        private CustomShortCodeValidator $customShortCodeValidator,
         private ShortUrlRepositoryInterface $repository,
     ) {}
 
@@ -27,7 +27,7 @@ final readonly class ShortCustomUrlService
     ): ShortUrl {
 
         $this->urlValidator->validate($originalUrl); // Valida a URL original
-        $this->validator->validate($codigoPersonalizado); // valida o código personalizado
+        $this->customShortCodeValidator->validate($codigoPersonalizado); // valida o código personalizado
 
         // Verifica se o código personalizado já exite no Banco de Dados
         if ($this->repository->existsByShortCode($codigoPersonalizado)) {
@@ -74,6 +74,35 @@ final readonly class ShortCustomUrlService
         );
 
         return $shortUrl;
+    }
+
+    /**
+     * Atualiza URL, código e etiqueta de uma URL customizada.
+     */
+    public function update(
+        ShortUrl $shortUrl,
+        string $originalUrl,
+        string $shortCode,
+        ?string $label = null,
+    ): ShortUrl {
+
+        $this->urlValidator->validate($originalUrl);
+        $this->customShortCodeValidator->validate($shortCode);
+
+        if (
+            $shortCode !== $shortUrl->short_code
+            && $this->repository->existsByShortCode($shortCode)
+        ) {
+            throw new \InvalidArgumentException(
+                'The custom short code is already in use.'
+            );
+        }
+
+        $shortUrl->original_url = $originalUrl;
+        $shortUrl->short_code = $shortCode;
+        $shortUrl->label = $label;
+
+        return $this->repository->save($shortUrl);
     }
 
     /**
