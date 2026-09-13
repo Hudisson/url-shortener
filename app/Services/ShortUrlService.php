@@ -59,9 +59,22 @@ final readonly class ShortUrlService
     }
 
     /**
+     * Atualiza somente os campos permitidos para uma URL base62.
+     */
+    public function update(ShortUrl $shortUrl, string $originalUrl, ?string $label = null): ShortUrl
+    {
+        $this->validator->validate($originalUrl);
+
+        $shortUrl->original_url = $originalUrl;
+        $shortUrl->label = $label;
+
+        return $this->repository->save($shortUrl);
+    }
+
+    /**
      * Método responsável por montar a entidade ShortUrl com os valores iniciais.
      */
-    private function buildShortUrl(string $originalUrl, string $shortCode, ?int $userId,?string $label = null): ShortUrl
+    private function buildShortUrl(string $originalUrl, string $shortCode, ?int $userId, ?string $label = null): ShortUrl
     {
         $shortUrl = new ShortUrl();
 
