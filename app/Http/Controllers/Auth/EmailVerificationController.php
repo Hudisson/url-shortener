@@ -20,9 +20,11 @@ final class EmailVerificationController extends Controller
     /**
      * Exibe a página de verificação de e-mail.
      */
-    public function create(): View
+    public function create(Request $request): View
     {
-        return view('auth.verify-email');
+        return view('auth.verify-email', [
+            'email' => $request->session()->get('email_verification_email'),
+        ]);
     }
 
     /**
@@ -31,11 +33,6 @@ final class EmailVerificationController extends Controller
     public function store(Request $request): RedirectResponse
     {
         $validated = $request->validate([
-            'email' => [
-                'required',
-                'email',
-                'max:255',
-            ],
             'code' => [
                 'required',
                 'string',
@@ -43,8 +40,18 @@ final class EmailVerificationController extends Controller
             ],
         ]);
 
+        $email = $request->session()->get('email_verification_email');
+
+        if (! is_string($email) || $email === '') {
+            return redirect()
+                ->route('login')
+                ->withErrors([
+                    'email' => 'Informe seu e-mail para continuar a verificação.',
+                ]);
+        }
+
         $isValid = $this->emailVerificationService->verifyByEmail(
-            $validated['email'],
+            $email,
             $validated['code'],
         );
 
@@ -53,9 +60,7 @@ final class EmailVerificationController extends Controller
                 ->withErrors([
                     'code' => 'Código inválido ou expirado.',
                 ])
-                ->withInput(
-                    $request->only('email')
-                );
+                ->withInput();
         }
 
         return redirect()
@@ -71,17 +76,19 @@ final class EmailVerificationController extends Controller
      */
     public function resend(Request $request): RedirectResponse
     {
-        $validated = $request->validate([
-            'email' => [
-                'required',
-                'email',
-                'max:255',
-            ],
-        ]);
+        $email = $request->session()->get('email_verification_email');
+
+        if (! is_string($email) || $email === '') {
+            return redirect()
+                ->route('login')
+                ->withErrors([
+                    'email' => 'Informe seu e-mail para continuar a verificação.',
+                ]);
+        }
 
         try {
             $this->emailVerificationService->resendByEmail(
-                $validated['email']
+                $email
             );
         } catch (RuntimeException $exception) {
             return redirect()
@@ -96,7 +103,7 @@ final class EmailVerificationController extends Controller
             ->route('verification.create')
             ->with(
                 'success',
-                'Se existir uma conta associada a este e-mail, um novo código de verificação será enviado.'
+                'Se existir uma conta associada a este e-mail, um código de verificação será enviado.'
             );
     }
 }

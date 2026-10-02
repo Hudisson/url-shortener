@@ -37,7 +37,7 @@ final class RegisterController extends Controller
         );
 
         session([
-            'email_verification_user_id' => $user->id,
+            'email_verification_email' => $user->email,
         ]);
 
         return redirect()

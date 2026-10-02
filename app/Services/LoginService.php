@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Services;
 
+use App\Exceptions\EmailNotVerifiedException;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 
@@ -26,11 +27,9 @@ final readonly class LoginService
         }
 
         if ($user->email_verified_at === null) {
-            throw new \RuntimeException('E-mail ainda não verificado.');
+            throw new EmailNotVerifiedException();
         }
 
         return $user;
     }
 }
-
-
