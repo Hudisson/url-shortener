@@ -15,6 +15,18 @@
 
             </div>
 
+            @if (session('success'))
+                <x-alert type="success">
+                    {{ session('success') }}
+                </x-alert>
+            @endif
+
+            @if ($errors->any())
+                <x-alert>
+                    {{ $errors->first() }}
+                </x-alert>
+            @endif
+
             <div class="form-group">
                 <label>Nome</label>
 
@@ -40,6 +52,10 @@
                 <input type="text" value="{{ $user->email_verified_at !== null ? 'Verificado' : 'Não verificado' }}"
                     disabled>
             </div>
+
+            <a href="{{ route('profile.edit') }}" class="button">
+                Editar perfil
+            </a>
 
         </section>
 

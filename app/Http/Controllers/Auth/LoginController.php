@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Auth;
 
+use App\Exceptions\EmailNotVerifiedException;
 use App\Http\Controllers\Controller;
+use App\Services\EmailVerificationService;
 use App\Services\LoginService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -14,7 +16,8 @@ use RuntimeException;
 final class LoginController extends Controller
 {
     public function __construct(
-        private readonly LoginService $service
+        private readonly LoginService $service,
+        private readonly EmailVerificationService $emailVerificationService,
     ) {}
 
     public function create(): View
@@ -37,10 +40,24 @@ final class LoginController extends Controller
 
             $request->session()->regenerate();
 
-            auth()->login($user);
+            auth()->guard()->login($user);
 
             return redirect()->route('dashboard');
-            
+
+        } catch (EmailNotVerifiedException) {
+            $request->session()->put('email_verification_email', $validated['email']);
+
+            try {
+                $this->emailVerificationService->resendByEmail($validated['email']);
+            } catch (RuntimeException $exception) {
+                return redirect()
+                    ->route('verification.create')
+                    ->with('error', $exception->getMessage());
+            }
+
+            return redirect()
+                ->route('verification.create')
+                ->with('success', 'Enviamos um código de verificação para o seu e-mail.');
         } catch (RuntimeException $exception) {
             return back()
                 ->withInput($request->only('email'))
@@ -52,7 +69,7 @@ final class LoginController extends Controller
 
     public function destroy(Request $request): RedirectResponse
     {
-        auth()->logout();
+        auth()->guard()->logout();
 
         $request->session()->invalidate();
         $request->session()->regenerateToken();

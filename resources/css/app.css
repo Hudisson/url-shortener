@@ -305,7 +305,8 @@ Dropdown aberto
    e urls.blade.php (lista de URLs)
    ========================= */
 
-.short-url-info label, .short-url-info span,
+.short-url-info label,
+.short-url-info span,
 .most-accessed-info span {
     display: block;
 
@@ -322,12 +323,13 @@ Dropdown aberto
 }
 
 .short-url-info .etiqueta,
-.most-accessed-info .etiqueta{
-    color: #3d3021; /*554d44*/
+.most-accessed-info .etiqueta {
+    color: #3d3021;
+    /*554d44*/
 }
 
 .short-url-info .etiqueta-sem-titulo,
-.most-accessed-info .etiqueta-sem-titulo{
+.most-accessed-info .etiqueta-sem-titulo {
     color: #bdbdcf;
 }
 
@@ -347,7 +349,7 @@ Dropdown aberto
     font-size: 12px !important;
 }
 
-.btn-view-metrics-url{
+.btn-view-metrics-url {
     background-color: #1142aacb !important;
 }
 
@@ -536,6 +538,11 @@ button:hover {
    ========================= */
 
 .error {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 12px;
+
     margin-bottom: 20px;
     padding: 12px 14px;
 
@@ -668,6 +675,11 @@ button:hover {
    ========================= */
 
 .success {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 12px;
+
     margin-bottom: 20px;
     padding: 12px 14px;
 
@@ -678,6 +690,24 @@ button:hover {
     border-radius: 7px;
 
     font-size: 14px;
+}
+
+.alert-close {
+    flex: 0 0 auto;
+
+    width: auto;
+    margin: -4px -6px 0 0;
+    padding: 4px 6px;
+
+    background: transparent;
+    color: inherit;
+
+    font-size: 16px;
+    line-height: 1;
+}
+
+.alert-close:hover {
+    background: rgba(0, 0, 0, 0.08);
 }
 
 /* =========================

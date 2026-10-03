@@ -6,6 +6,7 @@ namespace App\Services;
 
 use App\Mail\EmailVerificationMail;
 use App\Models\User;
+use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use RuntimeException;
@@ -28,6 +29,7 @@ final class EmailVerificationService
 
         $user->emailVerificationCodes()->create([
             'code' => Hash::make($code),
+            'code_encrypted' => Crypt::encryptString($code),
             'expires_at' => now()->addMinutes(self::EXPIRATION_MINUTES),
         ]);
 
@@ -90,7 +92,7 @@ final class EmailVerificationService
     }
 
     /**
-     * Reenvia um novo código de verificação.
+     * Reenvia o código ativo ou cria um novo quando o anterior expirou.
      */
     public function resendByEmail(string $email): void
     {
@@ -108,7 +110,23 @@ final class EmailVerificationService
             return;
         }
 
-        $this->ensureResendAllowed($user);
+        $lastCode = $user->emailVerificationCodes()
+            ->latest()
+            ->first();
+
+        if ($lastCode !== null && $lastCode->expires_at->isFuture()) {
+            if ($lastCode->code_encrypted !== null) {
+                $code = Crypt::decryptString($lastCode->code_encrypted);
+
+                Mail::to($user->email)->send(
+                    new EmailVerificationMail($user, $code)
+                );
+
+                return;
+            }
+        } else {
+            $this->ensureResendAllowed($user);
+        }
 
         $this->deletePreviousCodes($user);
 

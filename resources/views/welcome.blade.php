@@ -19,9 +19,9 @@
             </div>
 
             @if ($errors->any())
-                <div class="error">
+                <x-alert>
                     {{ $errors->first() }}
-                </div>
+                </x-alert>
             @endif
 
             <form action="{{ url('/shorten') }}" method="POST">
@@ -48,20 +48,19 @@
                         <div class="div-input-radio input-url-automatica">
                             <label>Gerada automaticamente</label>
                             <input type="radio" name="tipo_url" value="auto"
-                                    {{ old('tipo_url', 'auto') == 'auto' ? 'checked' : '' }}
-                                    onchange="toggleCustomCode(false)">
+                                {{ old('tipo_url', 'auto') == 'auto' ? 'checked' : '' }} onchange="toggleCustomCode(false)">
                         </div>
 
                         <div class="div-input-radio input-url-personalizada">
                             <label> Personalizada </label>
                             <input type="radio" name="tipo_url" value="custom"
-                                    {{ old('tipo_url') == 'custom' ? 'checked' : '' }}
-                                    onchange="toggleCustomCode(true)">
+                                {{ old('tipo_url') == 'custom' ? 'checked' : '' }} onchange="toggleCustomCode(true)">
                         </div>
                     </div>
 
                     <!-- Código personalizado -->
-                    <div class="form-group" id="custom-code-group" style="display: {{ old('tipo_url') == 'custom' ? 'block' : 'none' }};">
+                    <div class="form-group" id="custom-code-group"
+                        style="display: {{ old('tipo_url') == 'custom' ? 'block' : 'none' }};">
 
                         <label for="codigo_personalizado">
                             Código personalizado

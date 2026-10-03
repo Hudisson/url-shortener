@@ -1,134 +1,93 @@
 @extends('layouts.app')
 
 @section('content')
+    <div class="public-page">
 
-<div class="public-page">
+        <section class="shortener-card">
 
-    <section class="shortener-card">
+            <div class="shortener-header">
 
-        <div class="shortener-header">
+                <h1>Verifique sua conta</h1>
 
-            <h1>Verifique sua conta</h1>
+                <p>
+                    Informe o código enviado para o e-mail abaixo para ativar sua conta.
+                </p>
 
-            <p>
-                Informe o e-mail utilizado no cadastro e o código
-                recebido para ativar sua conta.
-            </p>
-
-        </div>
-
-        @if (session('success'))
-            <div class="success">
-                {{ session('success') }}
             </div>
-        @endif
 
-        @if (session('error'))
-            <div class="error">
-                {{ session('error') }}
-            </div>
-        @endif
+            @if (session('success'))
+                <x-alert type="success">
+                    {{ session('success') }}
+                </x-alert>
+            @endif
 
-
-        {{-- E-mail da conta --}}
-        <div class="form-group">
-
-            <label for="email">
-                E-mail
-            </label>
-
-            <input
-                type="email"
-                id="email"
-                name="email"
-                form="verification-form"
-                value="{{ old('email') }}"
-                autocomplete="email"
-                placeholder="Digite o e-mail utilizado no cadastro"
-            >
-
-            @error('email')
-                <div class="error">
-                    {{ $message }}
-                </div>
-            @enderror
-
-        </div>
+            @if (session('error'))
+                <x-alert>
+                    {{ session('error') }}
+                </x-alert>
+            @endif
 
 
-        {{-- Formulário de verificação --}}
-        <form
-            method="POST"
-            action="{{ route('verification.store') }}"
-            id="verification-form"
-        >
-
-            @csrf
-
+            {{-- E-mail da conta --}}
             <div class="form-group">
 
-                <label for="code">
-                    Código de verificação
+                <label for="email">
+                    E-mail
                 </label>
 
-                <input
-                    type="text"
-                    id="code"
-                    name="code"
-                    maxlength="6"
-                    inputmode="numeric"
-                    autocomplete="one-time-code"
-                    placeholder="Digite o código de 6 dígitos"
-                    value="{{ old('code') }}"
-                >
+                <input type="email" id="email" name="email" form="verification-form" value="{{ $email }}"
+                    readonly autocomplete="email">
 
-                @error('code')
-                    <div class="error">
+                @error('email')
+                    <x-alert>
                         {{ $message }}
-                    </div>
+                    </x-alert>
                 @enderror
 
             </div>
 
-            <button type="submit">
-                Verificar conta
-            </button>
 
-        </form>
+            {{-- Formulário de verificação --}}
+            <form method="POST" action="{{ route('verification.store') }}" id="verification-form">
+
+                @csrf
+
+                <div class="form-group">
+
+                    <label for="code">
+                        Código de verificação
+                    </label>
+
+                    <input type="text" id="code" name="code" maxlength="6" inputmode="numeric"
+                        autocomplete="one-time-code" placeholder="Digite o código de 6 dígitos" value="{{ old('code') }}">
+
+                    @error('code')
+                        <x-alert>
+                            {{ $message }}
+                        </x-alert>
+                    @enderror
+
+                </div>
+
+                <button type="submit">
+                    Verificar conta
+                </button>
+
+            </form>
 
 
-        {{-- Formulário de reenvio --}}
-        <form
-            method="POST"
-            action="{{ route('verification.resend') }}"
-            id="resend-form"
-        >
+            {{-- Formulário de reenvio --}}
+            <form method="POST" action="{{ route('verification.resend') }}" id="resend-form">
 
-            @csrf
+                @csrf
 
-            <input
-                type="hidden"
-                name="email"
-                id="resend-email"
-            >
+                <button type="submit" class="btn_resend-code">
+                    Reenviar código
+                </button>
 
-            <button type="submit" class="btn_resend-code">
-                Reenviar código
-            </button>
+            </form>
 
-        </form>
+        </section>
 
-    </section>
-
-</div>
-
-<script>
-    const emailInput = document.getElementById('email');
-    const resendEmail = document.getElementById('resend-email');
-
-    document.getElementById('resend-form').addEventListener('submit', function () {
-        resendEmail.value = emailInput.value;
-    });
-</script>
-
+    </div>
 @endsection
