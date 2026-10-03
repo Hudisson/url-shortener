@@ -6,6 +6,10 @@
 
     margin-top: 10px;
     background-color: #1e5b74;
+}
 
-
+.input-disabled {
+    background-color: #f0f0f0;
+    border: 1px solid #807272;
+    color: #777;
 }

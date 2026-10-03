@@ -16,15 +16,15 @@
             </div>
 
             @if (session('success'))
-                <div class="success">
+                <x-alert type="success">
                     {{ session('success') }}
-                </div>
+                </x-alert>
             @endif
 
             @if (session('error'))
-                <div class="error">
+                <x-alert>
                     {{ session('error') }}
-                </div>
+                </x-alert>
             @endif
 
 
@@ -39,9 +39,9 @@
                     readonly autocomplete="email">
 
                 @error('email')
-                    <div class="error">
+                    <x-alert>
                         {{ $message }}
-                    </div>
+                    </x-alert>
                 @enderror
 
             </div>
@@ -62,9 +62,9 @@
                         autocomplete="one-time-code" placeholder="Digite o código de 6 dígitos" value="{{ old('code') }}">
 
                     @error('code')
-                        <div class="error">
+                        <x-alert>
                             {{ $message }}
-                        </div>
+                        </x-alert>
                     @enderror
 
                 </div>

@@ -19,15 +19,15 @@
             </div>
 
             @if (session('success'))
-                <div class="success">
+                <x-alert type="success">
                     {{ session('success') }}
-                </div>
+                </x-alert>
             @endif
 
             @if ($errors->any())
-                <div class="error">
+                <x-alert>
                     {{ $errors->first() }}
-                </div>
+                </x-alert>
             @endif
 
             <form action="{{ route('register.store') }}" method="POST" novalidate>

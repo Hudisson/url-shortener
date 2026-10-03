@@ -16,9 +16,9 @@
             </div>
 
             @if (session('success'))
-                <div class="success">
+                <x-alert type="success">
                     {{ session('success') }}
-                </div>
+                </x-alert>
             @endif
 
             <form method="POST" action="{{ route('login.store') }}">
@@ -35,9 +35,9 @@
                         placeholder="Digite seu e-mail">
 
                     @error('email')
-                        <div class="error">
+                        <x-alert>
                             {{ $message }}
-                        </div>
+                        </x-alert>
                     @enderror
 
                 </div>
@@ -57,9 +57,9 @@
                     </div>
 
                     @error('password')
-                        <div class="error">
+                        <x-alert>
                             {{ $message }}
-                        </div>
+                        </x-alert>
                     @enderror
 
                 </div>

@@ -67,7 +67,7 @@ Route::get('/dashboard/{shortCode}/metrics', [DashboardController::class, 'metri
 Route::get('/urls/{shortCode}/edit', [ShortUrlController::class, 'edit'])
     ->middleware('auth')
     ->name('dashboard.edit');
-    
+
 Route::put('/urls/{shortCode}', [ShortUrlController::class, 'update'])
     ->middleware('auth')
     ->name('dashboard.update');
@@ -85,6 +85,14 @@ Route::delete('/dashboard/{shortCode}', [DashboardController::class, 'destroy'])
 Route::get('/profile', [ProfileController::class, 'show'])
     ->middleware('auth')
     ->name('profile');
+
+Route::get('/profile/edit', [ProfileController::class, 'edit'])
+    ->middleware('auth')
+    ->name('profile.edit');
+
+Route::put('/profile', [ProfileController::class, 'update'])
+    ->middleware('auth')
+    ->name('profile.update');
 
 
 // =========================
