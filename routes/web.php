@@ -3,11 +3,12 @@
 use App\Http\Controllers\Auth\EmailVerificationController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ProfilePasswordResetController;
 use App\Http\Controllers\RedirectController;
 use App\Http\Controllers\ShortUrlController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\DashboardController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -93,6 +94,22 @@ Route::get('/profile/edit', [ProfileController::class, 'edit'])
 Route::put('/profile', [ProfileController::class, 'update'])
     ->middleware('auth')
     ->name('profile.update');
+
+Route::get('/profile/password', [ProfilePasswordResetController::class, 'create'])
+    ->middleware('auth')
+    ->name('profile.password.edit');
+
+Route::post('/profile/password/code', [ProfilePasswordResetController::class, 'sendCode'])
+    ->middleware('auth')
+    ->name('profile.password.send-code');
+
+Route::get('/profile/password/confirm', [ProfilePasswordResetController::class, 'confirm'])
+    ->middleware('auth')
+    ->name('profile.password.confirm');
+
+Route::post('/profile/password/confirm', [ProfilePasswordResetController::class, 'verify'])
+    ->middleware('auth')
+    ->name('profile.password.verify');
 
 
 // =========================

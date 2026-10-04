@@ -1,3 +1,5 @@
+import './password-toggle.js';
+
 document.addEventListener('click', (event) => {
     if (!(event.target instanceof Element)) {
         return;
