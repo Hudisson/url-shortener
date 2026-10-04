@@ -57,6 +57,10 @@
                 Editar perfil
             </a>
 
+            <a href="{{ route('profile.password.edit') }}" class="secondary-button">
+                Redefinir senha
+            </a>
+
         </section>
 
     </div>

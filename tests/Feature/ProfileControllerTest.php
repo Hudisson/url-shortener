@@ -32,6 +32,8 @@ final class ProfileControllerTest extends TestCase
         $response->assertSee('value="'.$user->email.'"', false);
         $response->assertSee('name="password"', false);
         $response->assertSee('autocomplete="current-password"', false);
+        $response->assertSee('data-target="password"', false);
+        $response->assertSee('class="password-toggle"', false);
     }
 
     public function test_profile_success_message_has_a_close_button(): void

@@ -1,12 +1,11 @@
 <!DOCTYPE html>
-
 <html lang="pt-BR">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Verifique sua conta</title>
+    <title>Código para redefinição de senha</title>
 </head>
 
 <body
@@ -23,6 +22,7 @@
         <tr>
             <td align="center">
 
+                <!-- Container -->
                 <table width="100%" cellpadding="0" cellspacing="0" border="0"
                     style="
                         max-width: 560px;
@@ -32,6 +32,7 @@
                         box-shadow: 0 4px 18px rgba(0, 0, 0, 0.06);
                     ">
 
+                    <!-- Header -->
                     <tr>
                         <td align="center"
                             style="
@@ -46,11 +47,12 @@
                                 line-height: 1.3;
                                 font-weight: 700;
                             ">
-                                Verifique sua conta
+                                Redefinição de senha
                             </h1>
                         </td>
                     </tr>
 
+                    <!-- Content -->
                     <tr>
                         <td style="padding: 36px 32px;">
 
@@ -71,7 +73,8 @@
                                 line-height: 1.7;
                                 color: #52525b;
                             ">
-                                Obrigado por se cadastrar no URL Shortener.
+                                Recebemos uma solicitação para redefinir a senha
+                                da sua conta.
                             </p>
 
                             <p
@@ -81,9 +84,11 @@
                                 line-height: 1.7;
                                 color: #52525b;
                             ">
-                                Para verificar sua conta, utilize o código abaixo:
+                                Para confirmar a alteração, informe o código
+                                abaixo na página de redefinição de senha:
                             </p>
 
+                            <!-- Code -->
                             <table width="100%" cellpadding="0" cellspacing="0" border="0"
                                 style="margin: 0 0 28px;">
                                 <tr>
@@ -109,6 +114,7 @@
                                 </tr>
                             </table>
 
+                            <!-- Expiration -->
                             <p
                                 style="
                                 margin: 0 0 24px;
@@ -119,8 +125,14 @@
                                 line-height: 1.6;
                                 color: #71717a;
                             ">
-                                Este código é válido por
-                                <strong style="color: #18181b;">15 minutos</strong>.
+                                <strong style="color: #18181b;">
+                                    Atenção:
+                                </strong>
+                                este código é válido por
+                                <strong style="color: #18181b;">
+                                    15 minutos
+                                </strong>
+                                e pode ser utilizado apenas uma vez.
                             </p>
 
                             <p
@@ -130,12 +142,15 @@
                                 line-height: 1.7;
                                 color: #71717a;
                             ">
-                                Se você não realizou este cadastro, ignore este e-mail.
+                                Se você não solicitou a redefinição de senha,
+                                pode ignorar este e-mail. Sua senha não será
+                                alterada sem a confirmação do código.
                             </p>
 
                         </td>
                     </tr>
 
+                    <!-- Footer -->
                     <tr>
                         <td align="center"
                             style="
@@ -150,7 +165,8 @@
                                 line-height: 1.5;
                                 color: #71717a;
                             ">
-                                Este é um e-mail automático. Por favor, não responda a esta mensagem.
+                                Este é um e-mail automático. Por favor,
+                                não responda a esta mensagem.
                             </p>
                         </td>
                     </tr>

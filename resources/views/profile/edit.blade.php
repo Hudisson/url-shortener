@@ -43,7 +43,12 @@
                 <div class="form-group">
                     <label for="password">Confirme sua senha atual</label>
 
-                    <input type="password" id="password" name="password" required autocomplete="current-password">
+                    <div class="password-container">
+                        <input type="password" id="password" name="password" required autocomplete="current-password">
+                        <button type="button" class="password-toggle" data-target="password" aria-label="Mostrar senha">
+                            <i class="fa-solid fa-eye"></i>
+                        </button>
+                    </div>
                 </div>
 
                 <button type="submit">
