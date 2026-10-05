@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Auth\EmailVerificationController;
+use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\DashboardController;
@@ -41,6 +42,18 @@ Route::get('/login', [LoginController::class, 'create'])
 
 Route::post('/login', [LoginController::class, 'store'])
     ->name('login.store');
+
+Route::get('/password/forgot', [ForgotPasswordController::class, 'create'])
+    ->name('password.request');
+
+Route::post('/password/forgot', [ForgotPasswordController::class, 'sendResetLink'])
+    ->name('password.email');
+
+Route::get('/password/reset/{token}', [ForgotPasswordController::class, 'edit'])
+    ->name('password.reset');
+
+Route::post('/password/reset', [ForgotPasswordController::class, 'reset'])
+    ->name('password.update');
 
 Route::post('/logout', [LoginController::class, 'destroy'])
     ->name('logout');

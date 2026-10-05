@@ -68,6 +68,11 @@
                     Entrar
                 </button>
 
+                {{-- Link para redefinir senha --}}
+                <a href="{{ route('password.request') }}" class="secondary-button">
+                    Esqueci minha senha
+                </a>
+
             </form>
 
         </section>
