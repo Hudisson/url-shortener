@@ -112,7 +112,7 @@ final readonly class ShortCustomUrlService
         string $originalUrl,
         string $codigoPersonalizado,
         int $userId,
-        string $label,
+        ?string $label = null
     ): ShortUrl {
         $shortUrl = new ShortUrl();
 

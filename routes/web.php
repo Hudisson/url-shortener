@@ -45,7 +45,6 @@ Route::post('/login', [LoginController::class, 'store'])
 Route::post('/logout', [LoginController::class, 'destroy'])
     ->name('logout');
 
-
 // =========================
 // Dashboard
 // =========================
@@ -78,7 +77,6 @@ Route::delete('/dashboard/{shortCode}', [DashboardController::class, 'destroy'])
     ->middleware('auth')
     ->name('dashboard.destroy');
 
-
 // =========================
 // Perfil
 // =========================
@@ -94,6 +92,14 @@ Route::get('/profile/edit', [ProfileController::class, 'edit'])
 Route::put('/profile', [ProfileController::class, 'update'])
     ->middleware('auth')
     ->name('profile.update');
+
+Route::get('/profile/delete', [ProfileController::class, 'delete'])
+    ->middleware('auth')
+    ->name('profile.delete');
+
+Route::delete('/profile', [ProfileController::class, 'destroy'])
+    ->middleware('auth')
+    ->name('profile.destroy');
 
 Route::get('/profile/password', [ProfilePasswordResetController::class, 'create'])
     ->middleware('auth')
@@ -111,13 +117,11 @@ Route::post('/profile/password/confirm', [ProfilePasswordResetController::class,
     ->middleware('auth')
     ->name('profile.password.verify');
 
-
 // =========================
 // Encurtar URL
 // =========================
 
 Route::post('/shorten', [ShortUrlController::class, 'store']);
-
 
 // =========================
 // Redirecionamento de URL curta
