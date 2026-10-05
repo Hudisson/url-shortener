@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use App\Models\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
@@ -12,6 +11,16 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  */
 class ShortUrl extends Model
 {
+    protected static function booted(): void
+    {
+        static::creating(function (ShortUrl $shortUrl): void {
+            $createdAt = $shortUrl->created_at ?? now();
+
+            $shortUrl->created_at = $createdAt;
+            $shortUrl->expires_at = $createdAt->copy()->addYear();
+        });
+    }
+
     /**
      * Atributos que podem ser preenchidos em massa (Mass Assignment).
      *
@@ -39,6 +48,7 @@ class ShortUrl extends Model
         return [
             'clicks' => 'integer',
             'is_active' => 'boolean',   // Converte 0/1 do banco para true/false do PHP
+            'expires_at' => 'datetime',
         ];
     }
 

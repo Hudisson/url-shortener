@@ -73,6 +73,38 @@
 
                 </div>
 
+                <div class="metric-item">
+
+                    <i class="fa-solid fa-calendar-check"></i>
+
+                    <span class="metric-label">
+                        Atualizada em
+                    </span>
+
+                    <strong class="metric-value metric-date">
+                        {{ $shortUrl->updated_at->format('d/m/Y') }}
+                        às
+                        {{ $shortUrl->updated_at->format('H:i') }}
+                    </strong>
+
+                </div>
+
+                <div class="metric-item">
+
+                    <i class="fa-solid fa-calendar-xmark"></i>
+
+                    <span class="metric-label">
+                        Vence em
+                    </span>
+
+                    <strong class="metric-value metric-date">
+                        {{ $shortUrl->expires_at->format('d/m/Y') }}
+                        às
+                        {{ $shortUrl->expires_at->format('H:i') }}
+                    </strong>
+
+                </div>
+
             </div>
 
             <div class="metrics-actions">
