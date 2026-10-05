@@ -614,6 +614,15 @@ button:hover {
     background-color: #27272a;
 }
 
+.profile-delete-button {
+    background-color: #dc2626;
+    color: #fff;
+}
+
+.profile-delete-button:hover {
+    background-color: #b91c1c;
+}
+
 .secondary-button {
     color: #18181b;
 

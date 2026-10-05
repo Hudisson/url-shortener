@@ -103,9 +103,9 @@ return [
         'code' => 'código de verificação',
         'email' => 'e-mail',
         'name' => 'nome',
+        'password' => 'senha',
         'new_password' => 'nova senha',
         'new_password_confirmation' => 'confirmação da nova senha',
-        'password' => 'senha',
         'url' => 'URL',
     ],
 ];

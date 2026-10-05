@@ -61,6 +61,10 @@
                 Redefinir senha
             </a>
 
+            <a href="{{ route('profile.delete') }}" class="button profile-delete-button">
+                Excluir conta
+            </a>
+
         </section>
 
     </div>
