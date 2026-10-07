@@ -1,0 +1,61 @@
+  services:
+    app:
+      build:
+        context: ..
+        dockerfile: docker/Dockerfile
+      environment:
+        APP_ENV: local
+        APP_DEBUG: "true"
+        APP_URL: http://localhost:8000
+        APP_KEY: ${APP_KEY:-}
+        DB_CONNECTION: mysql
+        DB_HOST: mysql
+        DB_PORT: 3306
+        DB_DATABASE: ${DB_DATABASE:-url_shortener}
+        DB_USERNAME: ${DB_USERNAME:-url_shortener}
+        DB_PASSWORD: ${DB_PASSWORD:-senharoot123}
+        MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-outra-senha-forte123}
+
+        MAIL_MAILER: ${MAIL_MAILER:-smtp}
+        MAIL_SCHEME: ${MAIL_SCHEME:-smtp}
+        MAIL_HOST: ${MAIL_HOST:-smtp.gmail.com}
+        MAIL_PORT: ${MAIL_PORT:-587}
+
+        MAIL_USERNAME: ${MAIL_USERNAME:-youremail@exemplo.com}
+        MAIL_PASSWORD: ${MAIL_PASSWORD:-your-password-email}
+        MAIL_FROM_ADDRESS: ${MAIL_FROM_ADDRESS:-youremail@exemplo.com}
+
+        MAIL_FROM_NAME: ${MAIL_FROM_NAME:-URL Shortener}
+      ports:
+        - "8000:8000"
+      depends_on:
+        mysql:
+          condition: service_healthy
+      networks:
+        - app-network-url-shortener
+
+    mysql:
+      image: mysql:8
+      command: --default-time-zone=America/Sao_Paulo
+      environment:
+        TZ: America/Sao_Paulo
+        MYSQL_DATABASE: ${DB_DATABASE:-url_shortener}
+        MYSQL_USER: ${DB_USERNAME:-url_shortener}
+        MYSQL_PASSWORD: ${DB_PASSWORD:-url_shortener_password}
+        MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-root_password}
+      volumes:
+        - mysql_data:/var/lib/mysql
+      healthcheck:
+        test: ["CMD-SHELL", "mysqladmin ping -h 127.0.0.1 -uroot -p\"$$MYSQL_ROOT_PASSWORD\" --silent"]
+        interval: 5s
+        timeout: 5s
+        retries: 20
+      networks:
+        - app-network-url-shortener
+
+  networks:
+    app-network-url-shortener:
+      driver: bridge
+
+  volumes:
+    mysql_data:
