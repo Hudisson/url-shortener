@@ -187,47 +187,6 @@ Ao acessar a URL curta, o sistema redirecionará o usuário para a URL original.
 
 ---
 
-## API HTTP
-
-O endpoint de criação também pode ser utilizado por clientes HTTP como Insomnia ou Thunder Client.
-
-### Criar URL curta
-
-```http
-POST /shorten
-```
-
-Parâmetro:
-
-```json
-{
-    "url": "https://example.com"
-}
-```
-
-Resposta:
-
-```json
-{
-    "short_code": "7kK5l1",
-    "original_url": "https://example.com"
-}
-```
-
-A URL curta pode então ser acessada através de:
-
-```text
-/{short_code}
-```
-
-Por exemplo:
-
-```text
-http://127.0.0.1:8000/7kK5l1
-```
-
----
-
 ## Testes
 
 O projeto possui testes unitários e testes de integração/feature.
