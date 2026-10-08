@@ -2,15 +2,14 @@
 
 Um encurtador de URLs desenvolvido em **PHP com Laravel 12**, criado com foco em estudo, aplicação de conceitos de arquitetura de software e desenvolvimento de um MVP funcional.
 
-O projeto permite transformar URLs longas em URLs curtas e redirecionar o usuário para a URL original.
+O projeto permite transformar URLs longas em URLs curtas, acompanhar métricas e redirecionar o usuário para a URL original. Cada URL vence um ano após sua criação e URLs vencidas são removidas automaticamente pelo Scheduler.
 
 ## Status
 
-**MVP funcional**
+**MVP funcional em evolução**
 
-O projeto atualmente possui o fluxo principal de criação e redirecionamento de URLs curtas.
-
-Funcionalidades adicionais poderão ser implementadas posteriormente, após a validação do MVP.
+Além da criação e do redirecionamento de URLs curtas, o sistema possui autenticação,
+dashboard com métricas e validade automática das URLs.
 
 ---
 
@@ -23,8 +22,12 @@ Funcionalidades adicionais poderão ser implementadas posteriormente, após a va
 * Redirecionar a URL curta para a URL original.
 * Contabilizar os acessos às URLs.
 * Permitir desativação de URLs.
+* Definir vencimento de um ano a partir da criação de cada URL.
+* Exibir datas de criação, atualização e vencimento nas métricas da URL.
+* Excluir automaticamente URLs vencidas ao iniciar o Scheduler e, depois, diariamente.
 * Interface web para criação de URLs.
 * Resposta JSON para clientes de API.
+* Registrar no log as execuções e falhas da limpeza de URLs vencidas.
 * Testes automatizados com PHPUnit.
 
 ---
@@ -50,6 +53,7 @@ Antes de executar o projeto, certifique-se de possuir:
 * Composer
 * Node.js
 * NPM
+* MySQL 8.0 ou superior
 
 Verifique as versões instaladas:
 
@@ -102,21 +106,18 @@ php artisan key:generate
 
 ---
 
-## Banco de dados
+## Configuração do banco de dados
 
-O projeto utiliza MySQL.
-
-Crie o banco de dados caso ele ainda não exista:
-
-No arquivo `.env`, configure:
+O projeto utiliza MySQL 8. Crie um banco de dados e configure as credenciais no
+arquivo `.env`:
 
 ```env
 DB_CONNECTION=mysql
 DB_HOST=127.0.0.1
 DB_PORT=3306
-DB_DATABASE=database_name
-DB_USERNAME=database_user
-DB_PASSWORD=database_password
+DB_DATABASE=url_shortener
+DB_USERNAME=seu_usuario
+DB_PASSWORD=sua_senha
 ```
 
 Execute as migrations:
@@ -129,17 +130,31 @@ php artisan migrate
 
 ## Executando o projeto
 
-Para iniciar o servidor Laravel:
+Inicie cada processo em um terminal separado, na pasta do projeto.
+
+**Terminal 1 — servidor Laravel:**
 
 ```bash
 php artisan serve
 ```
 
-Em outro terminal, execute o Vite:
+**Terminal 2 — Vite:**
 
 ```bash
 npm run dev
 ```
+
+**Terminal 3 — limpeza inicial e Scheduler:**
+
+```bash
+php artisan short-urls:scheduler
+```
+
+O comando do Scheduler executa a limpeza imediatamente quando iniciado e mantém
+o processo ativo, verificando as tarefas agendadas. A rotina diária remove
+somente URLs cujo `expires_at` seja igual ou anterior ao horário da execução.
+Mantenha esse processo em execução; em produção, use um gerenciador de processos
+como Supervisor ou systemd.
 
 Depois acesse:
 
@@ -173,6 +188,47 @@ Ao acessar a URL curta, o sistema redirecionará o usuário para a URL original.
 
 ---
 
+## API HTTP
+
+O endpoint de criação também pode ser utilizado por clientes HTTP como Insomnia ou Thunder Client.
+
+### Criar URL curta
+
+```http
+POST /shorten
+```
+
+Parâmetro:
+
+```json
+{
+    "url": "https://example.com"
+}
+```
+
+Resposta:
+
+```json
+{
+    "short_code": "7kK5l1",
+    "original_url": "https://example.com"
+}
+```
+
+A URL curta pode então ser acessada através de:
+
+```text
+/{short_code}
+```
+
+Por exemplo:
+
+```text
+http://127.0.0.1:8000/7kK5l1
+```
+
+---
+
 ## Testes
 
 O projeto possui testes unitários e testes de integração/feature.
@@ -194,7 +250,10 @@ Os testes cobrem, entre outros:
 * tratamento de URLs inativas;
 * incremento do contador de cliques;
 * redirecionamento;
-* integração dos Controllers.
+* integração dos Controllers;
+* cálculo das datas de vencimento;
+* remoção de URLs vencidas e preservação das URLs ainda válidas;
+* registro de execução e falhas do processo de limpeza.
 
 ---
 
@@ -232,8 +291,20 @@ Concentram as regras de negócio:
 app/Services/
 ├── ShortUrlRedirectService.php
 ├── ShortUrlService.php
+├── ExpiredShortUrlCleanupService.php
 └── UniqueShortCodeGenerator.php
 ```
+
+### Comandos Artisan
+
+```text
+app/Console/Commands/
+├── CleanupExpiredShortUrlsCommand.php
+└── StartShortUrlSchedulerCommand.php
+```
+
+`short-urls:cleanup-expired` executa a limpeza uma vez. `short-urls:scheduler`
+faz essa execução ao iniciar e, em seguida, inicia o worker contínuo do Scheduler.
 
 ### Repositories
 
@@ -291,8 +362,11 @@ ShortCodeGenerator
    ↓
 ShortUrlRepository
    ↓
-SQLite
+MySQL 8
 ```
+
+Cada URL recebe `expires_at` um ano após `created_at`, usando a mesma data e hora
+da criação como referência.
 
 ---
 
@@ -322,6 +396,8 @@ URL original
 
 ```text
 app/
+├── Console/
+│   └── Commands/
 ├── Http/
 │   └── Controllers/
 ├── Logging/
@@ -354,7 +430,7 @@ tests/
 
 ---
 
-## Banco de dados
+## Estrutura da tabela `short_urls`
 
 A tabela principal do projeto é:
 
@@ -371,30 +447,17 @@ Com os seguintes campos:
 | `short_code`   | Código único da URL curta  |
 | `clicks`       | Quantidade de acessos      |
 | `is_active`    | Indica se a URL está ativa |
-| `created_at`   | Data de criação            |
-| `updated_at`   | Data da última atualização |
+| `created_at`   | Data de criação                   |
+| `updated_at`   | Data da última atualização        |
+| `expires_at`   | Vencimento, um ano após a criação |
 
 ---
 
 ## Escopo atual do MVP
 
-O objetivo desta primeira versão é validar o funcionamento básico de um serviço de encurtamento de URLs.
-
-Por isso, funcionalidades como:
-
-* autenticação de usuários;
-* painel administrativo;
-* histórico de URLs;
-* expiração automática;
-* limite de cliques;
-* analytics;
-* QR Code;
-* gerenciamento avançado de URLs;
-* cache;
-
-não fazem parte do escopo atual.
-
-Essas funcionalidades poderão ser adicionadas posteriormente.
+O MVP inclui criação e redirecionamento de URLs, autenticação, gerenciamento pelo
+dashboard, métricas básicas, vencimento anual e remoção automática de URLs vencidas.
+Novas funcionalidades poderão ser adicionadas conforme a evolução do projeto.
 
 ---
 
