@@ -6,6 +6,7 @@ namespace App\Repositories;
 
 use App\Models\ShortUrl;
 use App\Repositories\Contracts\ShortUrlRepositoryInterface;
+use DateTimeInterface;
 use Illuminate\Database\Eloquent\Collection;
 
 final readonly class ShortUrlRepository implements ShortUrlRepositoryInterface
@@ -74,6 +75,13 @@ final readonly class ShortUrlRepository implements ShortUrlRepositoryInterface
             ->delete() > 0;
     }
 
+    public function deleteExpiredAtOrBefore(DateTimeInterface $dateTime): int
+    {
+        return ShortUrl::query()
+            ->where('expires_at', '<=', $dateTime)
+            ->delete();
+    }
+
     /**
      * Retorna a quantidade de URLs encurtadas pertencentes a um usuário.
      */
@@ -81,7 +89,7 @@ final readonly class ShortUrlRepository implements ShortUrlRepositoryInterface
     {
         return ShortUrl::query()
             ->where('user_id', $userId)
-            ->count();
+            ->count('*');
     }
 
     /**
@@ -92,7 +100,7 @@ final readonly class ShortUrlRepository implements ShortUrlRepositoryInterface
         return ShortUrl::query()
             ->where('user_id', $userId)
             ->where('is_active', true)
-            ->count();
+            ->count('*');
     }
 
     /**
@@ -103,7 +111,7 @@ final readonly class ShortUrlRepository implements ShortUrlRepositoryInterface
         return ShortUrl::query()
             ->where('user_id', $userId)
             ->where('is_active', false)
-            ->count();
+            ->count('*');
     }
 
     /**

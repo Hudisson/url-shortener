@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Repositories\Contracts;
 
 use App\Models\ShortUrl;
+use DateTimeInterface;
 use Illuminate\Database\Eloquent\Collection;
 
 interface ShortUrlRepositoryInterface
@@ -39,6 +40,10 @@ interface ShortUrlRepositoryInterface
      */
     public function deleteByShortCodeAndUserId(string $shortCode, int $userId): bool;
 
+    /**
+     * Exclui URLs cujo vencimento ocorreu até o instante informado.
+     */
+    public function deleteExpiredAtOrBefore(DateTimeInterface $dateTime): int;
 
     /**
      * Retorna a quantidade de URLs encurtadas pertencentes a um usuário.
@@ -58,5 +63,5 @@ interface ShortUrlRepositoryInterface
     /**
      * Retorna as URLs mais acessadas pertencentes a um usuário.
      */
-    public function findMostAccessedByUserId( int $userId, int $limit = 3): Collection;
+    public function findMostAccessedByUserId(int $userId, int $limit = 3): Collection;
 }
