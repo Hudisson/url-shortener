@@ -26,7 +26,6 @@ dashboard com métricas e validade automática das URLs.
 * Exibir datas de criação, atualização e vencimento nas métricas da URL.
 * Excluir automaticamente URLs vencidas ao iniciar o Scheduler e, depois, diariamente.
 * Interface web para criação de URLs.
-* Resposta JSON para clientes de API.
 * Registrar no log as execuções e falhas da limpeza de URLs vencidas.
 * Testes automatizados com PHPUnit.
 
